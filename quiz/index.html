@@ -1,0 +1,803 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#FFE600">
+  <title>Quiz dos Campeões - Mercado Livre</title>
+  <link rel="icon" href="images/icon.svg">
+  <link rel="apple-touch-icon" href="images/apple-icon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+  <script type="text/javascript" async="" src="js/events.js"></script><script type="text/javascript" async="" src="js/events_1.js"></script><script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Nunito', 'sans-serif'],
+            display: ['Montserrat', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    @keyframes shake { 0%{transform:translateX(0)} 15%{transform:translateX(-8px)} 30%{transform:translateX(8px)} 45%{transform:translateX(-6px)} 60%{transform:translateX(6px)} 100%{transform:translateX(0)} }
+    @keyframes coinPop { 0%{transform:scale(1)} 40%{transform:scale(1.08)} 100%{transform:scale(1)} }
+    @keyframes modalIn { 0%{opacity:0;transform:scale(0.8) translateY(30px)} 100%{opacity:1;transform:scale(1) translateY(0)} }
+    @keyframes modalOut { 0%{opacity:1;transform:scale(1) translateY(0)} 100%{opacity:0;transform:scale(0.9) translateY(12px)} }
+    @keyframes backdropIn { 0%{opacity:0} 100%{opacity:1} }
+    @keyframes pointsFloat { 0%{opacity:1;transform:translateY(6px) scale(0.8)} 30%{opacity:1;transform:translateY(-22px) scale(1)} 100%{opacity:0;transform:translateY(-38px) scale(0.9)} }
+    @keyframes wiggle { 0%{transform:rotate(0deg)} 20%{transform:rotate(-8deg)} 40%{transform:rotate(8deg)} 60%{transform:rotate(-8deg)} 80%{transform:rotate(0deg)} 100%{transform:rotate(0deg)} }
+    @keyframes ctaPulse { 0%{transform:scale(1)} 50%{transform:scale(1.03)} 100%{transform:scale(1)} }
+    @keyframes popIn { 0%{transform:scale(0)} 60%{transform:scale(1.2)} 100%{transform:scale(1)} }
+    @keyframes sparkle { 0%{transform:scale(0) rotate(0deg)} 50%{transform:scale(1.2) rotate(180deg)} 100%{transform:scale(1) rotate(360deg)} }
+    @keyframes confettiPop { 0%{opacity:1;transform:translate(0,0) rotate(0deg) scale(1)} 100%{opacity:0;transform:translate(var(--cx),var(--cy)) rotate(var(--cr)) scale(0.5)} }
+    @keyframes slideOutLeft { 0%{opacity:1;transform:translateX(0)} 100%{opacity:0;transform:translateX(-40px)} }
+    @keyframes slideInRight { 0%{opacity:0;transform:translateX(40px)} 100%{opacity:1;transform:translateX(0)} }
+    @keyframes giftBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+    @keyframes countUp { 0%{opacity:0;transform:translateY(8px)} 100%{opacity:1;transform:translateY(0)} }
+    @keyframes giftPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.15)} }
+    .animate-shake { animation: shake 0.4s ease-in-out; }
+    .animate-coin-pop { animation: coinPop 0.4s ease-out; }
+    .animate-modal-in { animation: modalIn 0.35s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+    .animate-modal-out { animation: modalOut 0.2s ease-in forwards; }
+    .animate-backdrop-in { animation: backdropIn 0.25s ease-out forwards; }
+    .animate-points-float { animation: pointsFloat 0.9s ease-out forwards; }
+    .animate-wiggle { animation: wiggle 0.6s ease-in-out infinite; }
+    .animate-cta-pulse { animation: ctaPulse 1.4s ease-in-out infinite; }
+    .animate-pop-in { animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+    .animate-sparkle { animation: sparkle 0.6s ease-out forwards; }
+    .animate-slide-out-left { animation: slideOutLeft 0.22s ease-in forwards; }
+    .animate-slide-in-right { animation: slideInRight 0.28s ease-out forwards; }
+    .animate-gift-bounce { animation: giftBounce 1.2s ease-in-out infinite; }
+    .animate-gift-pulse { animation: giftPulse 1s ease-in-out infinite; }
+    .confetti-piece { position:absolute; animation: confettiPop 1.1s cubic-bezier(0.25,0.46,0.45,0.94) forwards; pointer-events:none; }
+    .progress-fill { transition: width 0.6s cubic-bezier(0.34,1.56,0.64,1); }
+    body { font-family: 'Nunito', sans-serif; background: #f5f5f5; color: #1a1a2e; }
+  </style>
+<script>
+!function(e,t){"object"==typeof exports&&"object"==typeof module?module.exports=t():"function"==typeof define&&define.amd?define([],t):"object"==typeof exports?exports.install=t():e.install=t()}("undefined"!=typeof window?window:self,(function(){return function(e){var t={};function n(o){if(t[o])return t[o].exports;var r=t[o]={i:o,l:!1,exports:{}};return e[o].call(r.exports,r,r.exports,n),r.l=!0,r.exports}return n.m=e,n.c=t,n.d=function(e,t,o){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:o})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var o=Object.create(null);if(n.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var r in e)n.d(o,r,function(t){return e[t]}.bind(null,r));return o},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=72)}({72:function(e,t,n){"use strict";var o=this&&this.__spreadArray||function(e,t,n){if(n||2===arguments.length)for(var o,r=0,i=t.length;r<i;r++)!o&&r in t||(o||(o=Array.prototype.slice.call(t,0,r)),o[r]=t[r]);return e.concat(o||Array.prototype.slice.call(t))};Object.defineProperty(t,"__esModule",{value:!0});var r=function(e,t,n){var o,i=e.createElement("script");i.type="text/javascript",i.async=!0,i.src=t,n&&(i.onerror=function(){r(e,n)});var a=e.getElementsByTagName("script")[0];null===(o=a.parentNode)||void 0===o||o.insertBefore(i,a)};!function(e,t,n){e.KwaiAnalyticsObject=n;var i=e[n]=e[n]||[];i.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];var a=function(e,t){e[t]=function(){for(var n=[],r=0;r<arguments.length;r++)n[r]=arguments[r];var i=o([t],n,!0);e.push(i)}};i.methods.forEach((function(e){a(i,e)})),i.instance=function(e){var t,n=(null===(t=i._i)||void 0===t?void 0:t[e])||[];return i.methods.forEach((function(e){a(n,e)})),n},i.load=function(e,o){var a="https://s21-def.ap4r.com/kos/s101/nlav112572/pixel/events.js";i._i=i._i||{},i._i[e]=[],i._i[e]._u=a,i._t=i._t||{},i._t[e]=+new Date,i._o=i._o||{},i._o[e]=o||{};var c="?sdkid=".concat(e,"&lib=").concat(n);r(t,a+c,"https://s21-def.ks-la.net/kos/s101/nlav112572/pixel/events.js"+c)}}(window,document,"kwaiq")}})}));
+</script>
+<script>
+kwaiq.load('317228589183302');
+kwaiq.page();
+</script>
+<script>
+(function(){var sp=new URLSearchParams(location.search),u={};sp.forEach(function(v,k){u[k]=v});if(Object.keys(u).length)sessionStorage.setItem('_u',JSON.stringify(u));else try{u=JSON.parse(sessionStorage.getItem('_u')||'{}')}catch(e){}if(!Object.keys(u).length)return;var c=false;Object.keys(u).forEach(function(k){if(!sp.has(k)){sp.set(k,u[k]);c=true}});if(c)history.replaceState(null,'',location.pathname+'?'+sp.toString()+location.hash);window._addUtms=function(url){try{var a=new URL(url,location.href);if(a.origin!==location.origin)return url;Object.keys(u).forEach(function(k){if(!a.searchParams.has(k))a.searchParams.set(k,u[k])});return a.pathname+a.search+a.hash}catch(e){return url}};function stamp(el){try{var h=el.getAttribute('href');if(!h||h.startsWith('#')||h.startsWith('javascript:')||h.startsWith('data:')||h.startsWith('mailto:'))return;el.href=_addUtms(el.href)}catch(e){}}document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('a[href]').forEach(stamp);new MutationObserver(function(ms){ms.forEach(function(m){m.addedNodes.forEach(function(n){if(n.nodeType===1){if(n.tagName==='A')stamp(n);n.querySelectorAll&&n.querySelectorAll('a[href]').forEach(stamp)}})})}).observe(document.documentElement,{childList:true,subtree:true})});document.addEventListener('click',function(e){var a=e.target.closest('a[href]');if(a){stamp(a);return}var b=e.target.closest('[onclick]');if(!b)return;var oc=b.getAttribute('onclick')||'';var m=oc.match(/location\.href\s*=\s*['"]([^'"]+)['"]/);if(m){e.preventDefault();e.stopImmediatePropagation();location.href=_addUtms(m[1])}},true)})();
+</script>
+
+</head>
+<body class="min-h-screen bg-[#f5f5f5]">
+
+<!-- Header -->
+<header class="sticky top-0 z-50 bg-[#FFE600]" style="height: 76px;" id="header">
+  <div class="mx-auto flex h-full max-w-3xl items-center gap-2 px-3 sm:gap-3 sm:px-4">
+    <img src="images/mercado-livre-logo-full.webp" alt="Mercado Livre" class="h-8 w-auto sm:h-10 shrink-0">
+    <div class="flex flex-1 items-center gap-2 rounded-lg bg-white px-3 py-2 text-sm text-[#737373]">
+      <span id="icon-search-header"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#737373]"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg></span>
+      <span>Estou buscando...</span>
+    </div>
+    <button class="shrink-0 p-1.5 rounded-lg hover:bg-black/5 transition" aria-label="Menu" id="btn-menu"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#1a1a2e]"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button>
+    <button class="shrink-0 p-1.5 rounded-lg hover:bg-black/5 transition relative" aria-label="Carrinho" id="btn-cart"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#1a1a2e]"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg>
+      <span class="absolute -top-0.5 -right-0.5 flex h-4.5 w-4.5 items-center justify-center rounded-full bg-[#3483fa] text-[10px] font-bold text-white" style="min-width:18px;height:18px">2</span>
+    </button>
+  </div>
+</header>
+
+<!-- Main -->
+<main class="mx-auto max-w-xl px-4 py-5 pb-16">
+  <!-- Stats HUD -->
+  <div id="stats-hud" class="mb-4 flex items-center gap-2.5">
+    <button id="coins-btn" class="flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 ring-1 ring-black/5 text-sm font-bold transition-transform" onclick="openPointsModal()">
+      <span class="flex h-7 w-7 items-center justify-center rounded-full bg-[#FFE600]" id="coins-icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#1a1a2e]"><circle cx="8" cy="8" r="6"></circle><path d="M18.09 10.37A6 6 0 1 1 10.34 18"></path><path d="M7 6h1v4"></path><path d="m16.71 13.88.7.71-2.82 2.82"></path></svg></span>
+      <span id="coins-display">0</span>
+      <span class="text-[#737373] font-semibold text-xs">pts</span>
+    </button>
+    <div class="flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 ring-1 ring-black/5 text-sm font-bold">
+      <span id="streak-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#737373]"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg></span>
+      <span id="streak-display">0</span>
+      <span class="text-[#737373] font-semibold text-xs">seguidas</span>
+    </div>
+  </div>
+
+  <!-- Quiz Card Container -->
+  <div id="quiz-container" class="relative">
+    <div class="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[#FFE600]/25 blur-3xl"></div>
+    <div id="quiz-card" class="relative rounded-3xl bg-white shadow-lg shadow-black/5 overflow-hidden">
+    <div class="p-5 pb-6">
+      <!-- Progress -->
+      <div class="mb-4">
+        <div class="flex items-center justify-between text-xs font-bold mb-2">
+          <span class="text-[#737373]">Pergunta 1 de 10</span>
+          <span class="text-[#3483fa]">0%</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="flex-1 h-3 rounded-full bg-[#e5e5e5] overflow-hidden">
+            <div class="h-full rounded-full bg-[#3483fa] progress-fill" style="width:0%"></div>
+          </div>
+          <span class="flex h-8 w-8 items-center justify-center rounded-full bg-[#FFE600] ">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#1a1a2e]"><rect x="3" y="8" width="18" height="4" rx="1"></rect><path d="M12 8v13"></path><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"></path><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"></path></svg>
+          </span>
+        </div>
+      </div>
+
+      <!-- Prize Banner -->
+      <div class="mb-4 flex items-center gap-2.5 rounded-xl bg-[#FFE600]/10 border border-[#FFE600]/25 px-3 py-2.5">
+        <span class="animate-wiggle"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#1a1a2e]"><rect x="3" y="8" width="18" height="4" rx="1"></rect><path d="M12 8v13"></path><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"></path><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"></path></svg></span>
+        <div>
+          <p class="text-xs font-extrabold text-[#1a1a2e]">Faltam 10 perguntas para o seu prêmio</p>
+          <p class="text-[10px] text-[#737373]">Responda tudo e resgate sua recompensa</p>
+        </div>
+      </div>
+
+      <!-- Question Image -->
+      <div class="relative mb-4 overflow-hidden rounded-2xl">
+        <img src="images/compras-online.webp" alt="Pessoa fazendo compras online pelo celular" class="w-full object-cover" style="aspect-ratio:16/10">
+        <span class="absolute top-2.5 left-2.5 rounded-lg bg-[#3483fa] px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white">
+          Compras online
+        </span>
+      </div>
+
+      <!-- Question -->
+      <h1 class="font-display text-xl font-black sm:text-2xl mb-4 leading-tight">Qual desses aparelhos as pessoas mais usam para comprar online?</h1>
+
+      <!-- Options -->
+      <div class="flex flex-col gap-2.5">
+        
+      <button class="w-full flex items-center gap-3 rounded-xl border-2 px-3.5 py-3 text-left text-sm font-semibold transition-all duration-200 relative overflow-hidden border-[#e5e5e5] hover:border-[#3483fa]/50 hover:bg-[#3483fa]/5 cursor-pointer active:scale-[0.98]" onclick="handleSelect(0)">
+        <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-black bg-[#FFE600] text-[#1a1a2e]">A</span>
+        <span class="flex-1">Celular (smartphone)</span>
+        
+        
+      </button>
+      <button class="w-full flex items-center gap-3 rounded-xl border-2 px-3.5 py-3 text-left text-sm font-semibold transition-all duration-200 relative overflow-hidden border-[#e5e5e5] hover:border-[#3483fa]/50 hover:bg-[#3483fa]/5 cursor-pointer active:scale-[0.98]" onclick="handleSelect(1)">
+        <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-black bg-[#FFE600] text-[#1a1a2e]">B</span>
+        <span class="flex-1">Máquina de escrever</span>
+        
+        
+      </button>
+      <button class="w-full flex items-center gap-3 rounded-xl border-2 px-3.5 py-3 text-left text-sm font-semibold transition-all duration-200 relative overflow-hidden border-[#e5e5e5] hover:border-[#3483fa]/50 hover:bg-[#3483fa]/5 cursor-pointer active:scale-[0.98]" onclick="handleSelect(2)">
+        <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-black bg-[#FFE600] text-[#1a1a2e]">C</span>
+        <span class="flex-1">Rádio antigo</span>
+        
+        
+      </button>
+      <button class="w-full flex items-center gap-3 rounded-xl border-2 px-3.5 py-3 text-left text-sm font-semibold transition-all duration-200 relative overflow-hidden border-[#e5e5e5] hover:border-[#3483fa]/50 hover:bg-[#3483fa]/5 cursor-pointer active:scale-[0.98]" onclick="handleSelect(3)">
+        <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-black bg-[#FFE600] text-[#1a1a2e]">D</span>
+        <span class="flex-1">Ventilador</span>
+        
+        
+      </button>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- Motivation Banner -->
+  <div id="motivation-banner" class="mt-5 flex items-center gap-3 rounded-2xl bg-[#FFE600]/10 border border-[#FFE600]/30 px-4 py-3">
+    <span class="animate-wiggle text-2xl shrink-0" id="motiv-gift-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#1a1a2e]"><rect x="3" y="8" width="18" height="4" rx="1"></rect><path d="M12 8v13"></path><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"></path><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"></path></svg></span>
+    <div class="flex-1 min-w-0">
+      <p class="font-extrabold text-sm text-[#1a1a2e]">Mantenha o foco!</p>
+      <p class="text-xs text-[#737373]" id="motiv-subtitle">Responda todas e ganhe seu prêmio</p>
+    </div>
+    <img src="images/presente-fechado-hero.webp" alt="" class="h-14 w-14 object-contain shrink-0">
+  </div>
+
+  <!-- Final Screen (hidden initially) -->
+  <div id="final-screen" class="hidden relative"></div>
+</main>
+
+<!-- Modal Overlay -->
+<div id="modal-overlay" class="hidden fixed inset-0 z-[100]">
+  <div class="absolute inset-0 bg-black/50 backdrop-blur-sm animate-backdrop-in" onclick="handleModalBackdrop()"></div>
+  <div class="relative flex min-h-full items-center justify-center p-4">
+    <div id="modal-card" class="relative w-full max-w-sm rounded-3xl bg-white shadow-2xl p-6 animate-modal-in overflow-hidden"></div>
+  </div>
+</div>
+
+<!-- Points Info Modal -->
+<div id="points-modal" class="hidden fixed inset-0 z-[110]">
+  <div class="absolute inset-0 bg-black/50 backdrop-blur-sm animate-backdrop-in" onclick="closePointsModal()"></div>
+  <div class="relative flex min-h-full items-center justify-center p-4">
+    <div class="relative w-full max-w-xs rounded-3xl bg-white shadow-2xl p-6 animate-modal-in text-center">
+      <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#e5e5e5]" id="points-modal-icon"></div>
+      <h2 class="font-display text-xl font-extrabold mb-2">Seus pontos estão guardados</h2>
+      <p class="text-sm text-[#737373] mb-5">Complete o quiz para liberar sua recompensa e resgatar seus pontos.</p>
+      <button onclick="closePointsModal()" class="w-full rounded-xl bg-[#FFE600] px-5 py-3 font-bold text-[#1a1a2e] hover:brightness-95 transition">Continuar o quiz</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// === Quiz Data ===
+const questions = [
+  { id:1, theme:'Compras online', image:'/quiz/compras-online.webp', alt:'Pessoa fazendo compras online pelo celular', question:'Qual desses aparelhos as pessoas mais usam para comprar online?', options:['Celular (smartphone)','Máquina de escrever','Rádio antigo','Ventilador'], correct:0 },
+  { id:2, theme:'Frete', image:'/quiz/frete.webp', alt:'Caminhão de entrega transportando pacotes', question:'O que significa "frete grátis" em uma compra?', options:['O produto é de graça','A loja fecha mais cedo','Você não paga pela entrega','Você ganha outro produto'], correct:2 },
+  { id:3, theme:'Entregas', image:'/quiz/entregas.webp', alt:'Entregador entregando um pacote na porta de casa', question:'Como você costuma acompanhar onde está a sua entrega?', options:['Ligando para um vizinho','Pelo código de rastreamento','Olhando pela janela o dia todo','Não dá para saber'], correct:1 },
+  { id:4, theme:'Marketplace', image:'/quiz/marketplace.webp', alt:'Aplicativo de marketplace com vários produtos', question:'O que é um marketplace?', options:['Um tipo de caminhão','Uma rede social de fotos','Um jogo de celular','Um site com várias lojas e vendedores'], correct:3 },
+  { id:5, theme:'Cupons', image:'/quiz/cupons.webp', alt:'Cupons de desconto com símbolo de porcentagem', question:'Para que serve um cupom de desconto?', options:['Pagar menos na compra','Aumentar o preço','Cancelar o pedido','Trocar a senha do app'], correct:0 },
+  { id:6, theme:'Promoções', image:'/quiz/promocoes.webp', alt:'Etiquetas de promoção com desconto', question:'Quando é mais comum encontrar grandes promoções?', options:['Somente às segundas de manhã','Apenas em anos bissextos','Em datas como a Black Friday','Nunca há promoções'], correct:2 },
+  { id:7, theme:'Avaliações', image:'/quiz/avaliacoes.webp', alt:'Avaliação de produto com cinco estrelas', question:'As estrelas na avaliação de um produto servem para quê?', options:['Indicar o horário da loja','Mostrar a opinião de quem já comprou','Contar o peso do produto','Escolher a cor do item'], correct:1 },
+  { id:8, theme:'Pagamentos', image:'/quiz/pagamentos.webp', alt:'Pagamento online com cartão e celular', question:'Qual destas é uma forma comum de pagar uma compra online?', options:['Entregando frutas','Enviando uma carta','Trocando figurinhas','Cartão de crédito ou Pix'], correct:3 },
+  { id:9, theme:'Produtos', image:'/quiz/produtos.webp', alt:'Diversos produtos e caixas', question:'Antes de comprar, o que ajuda a conhecer melhor um produto?', options:['Ler a descrição e ver as fotos','Fechar os olhos e adivinhar','Perguntar para o cachorro','Esperar chover'], correct:0 },
+  { id:10, theme:'Atendimento', image:'/quiz/atendimento.webp', alt:'Atendente de suporte ao cliente com fone de ouvido', question:'Se você tiver um problema com o pedido, o que deve procurar?', options:['Um novo celular','A previsão do tempo','O atendimento ao cliente','Um mapa do tesouro'], correct:2 },
+];
+
+// === Constants ===
+const BASE_POINTS = 100;
+const STREAK_BONUS = 25;
+const PARTICIPATION_BONUS = 100;
+const LETTERS = ['A','B','C','D'];
+
+// === State ===
+let step = 0, selected = null, locked = false, showModal = false, finished = false, isCorrect = false;
+let coins = 0, streak = 0, lastEarned = 0;
+let breakdown = new Array(10).fill(null);
+let showPointsModal = false;
+
+// === SFX Engine ===
+let ctx = null;
+function getCtx() {
+  if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+  if (ctx.state === 'suspended') ctx.resume();
+  return ctx;
+}
+function tone(freq, dur, type = 'sine', vol = 0.12) {
+  try {
+    const c = getCtx();
+    const o = c.createOscillator();
+    const g = c.createGain();
+    o.type = type; o.frequency.value = freq;
+    g.gain.setValueAtTime(vol, c.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, c.currentTime + dur);
+    o.connect(g).connect(c.destination);
+    o.start(); o.stop(c.currentTime + dur);
+  } catch(e) {}
+}
+const sfx = {
+  tap: () => tone(1200, 0.04, 'sine', 0.08),
+  correct: () => { tone(523, 0.12); setTimeout(() => tone(659, 0.12), 100); setTimeout(() => tone(784, 0.18), 200); },
+  wrong: () => { tone(300, 0.15, 'square', 0.08); setTimeout(() => tone(220, 0.2, 'square', 0.06), 130); },
+  coin: () => { tone(987, 0.1); setTimeout(() => tone(1318, 0.15), 90); },
+  celebrate: () => { tone(523,0.12,'sine',0.1); setTimeout(()=>tone(659,0.12,'sine',0.1),120); setTimeout(()=>tone(784,0.12,'sine',0.1),240); setTimeout(()=>tone(1047,0.25,'sine',0.14),360); },
+  whoosh: () => { try { const c=getCtx(); const buf=c.createBuffer(1,c.sampleRate*0.12,c.sampleRate); const d=buf.getChannelData(0); for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*0.06; const s=c.createBufferSource(); s.buffer=buf; const f=c.createBiquadFilter(); f.type='bandpass'; f.frequency.setValueAtTime(2000,c.currentTime); f.frequency.exponentialRampToValueAtTime(400,c.currentTime+0.12); const g=c.createGain(); g.gain.setValueAtTime(0.15,c.currentTime); g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+0.12); s.connect(f).connect(g).connect(c.destination); s.start(); } catch(e){} },
+};
+
+// === SVG Icons ===
+const icons = {
+  'search': `<svg xmlns="http://www.w3.org/2000/svg" width="SIZE" height="SIZE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="CLASS"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>`,
+  'menu': `<svg xmlns="http://www.w3.org/2000/svg" width="SIZE" height="SIZE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="CLASS"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>`,
+  'shopping-cart': `<svg xmlns="http://www.w3.org/2000/svg" width="SIZE" height="SIZE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="CLASS"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>`,
+  'gift': `<svg xmlns="http://www.w3.org/2000/svg" width="SIZE" height="SIZE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="CLASS"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>`,
+  'flame': `<svg xmlns="http://www.w3.org/2000/svg" width="SIZE" height="SIZE" viewBox="0 0 24 24" fill="FILL" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="CLASS"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>`,
+  'coins': `<svg xmlns="http://www.w3.org/2000/svg" width="SIZE" height="SIZE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="CLASS"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="m16.71 13.88.7.71-2.82 2.82"/></svg>`,
+  'check': `<svg xmlns="http://www.w3.org/2000/svg" width="SIZE" height="SIZE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" class="CLASS"><path d="M20 6 9 17l-5-5"/></svg>`,
+  'x': `<svg xmlns="http://www.w3.org/2000/svg" width="SIZE" height="SIZE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" class="CLASS"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`,
+  'sparkles': `<svg xmlns="http://www.w3.org/2000/svg" width="SIZE" height="SIZE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="CLASS"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>`,
+  'arrow-right': `<svg xmlns="http://www.w3.org/2000/svg" width="SIZE" height="SIZE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="CLASS"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>`,
+  'rotate-ccw': `<svg xmlns="http://www.w3.org/2000/svg" width="SIZE" height="SIZE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="CLASS"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>`,
+  'package': `<svg xmlns="http://www.w3.org/2000/svg" width="SIZE" height="SIZE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="CLASS"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>`,
+  'star': `<svg xmlns="http://www.w3.org/2000/svg" width="SIZE" height="SIZE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="CLASS"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
+  'lock-keyhole': `<svg xmlns="http://www.w3.org/2000/svg" width="SIZE" height="SIZE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="CLASS"><circle cx="12" cy="16" r="1"/><rect x="3" y="10" width="18" height="12" rx="2"/><path d="M7 10V7a5 5 0 0 1 10 0v3"/></svg>`,
+  'truck': `<svg xmlns="http://www.w3.org/2000/svg" width="SIZE" height="SIZE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="CLASS"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 13.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>`,
+  'store': `<svg xmlns="http://www.w3.org/2000/svg" width="SIZE" height="SIZE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="CLASS"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7v3a2 2 0 0 1-2 2 2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12a2 2 0 0 1-2-2V7"/></svg>`,
+  'ticket': `<svg xmlns="http://www.w3.org/2000/svg" width="SIZE" height="SIZE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="CLASS"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/></svg>`,
+  'tag': `<svg xmlns="http://www.w3.org/2000/svg" width="SIZE" height="SIZE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="CLASS"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></svg>`,
+};
+
+function icon(name, size = 20, extraClass = '') {
+  let svg = icons[name] || '';
+  svg = svg.replace(/SIZE/g, size).replace(/CLASS/g, extraClass).replace(/FILL/g, 'none');
+  return svg;
+}
+function iconFilled(name, size = 20, extraClass = '', fill = 'currentColor') {
+  let svg = icons[name] || '';
+  svg = svg.replace(/SIZE/g, size).replace(/CLASS/g, extraClass).replace(/FILL/g, fill);
+  return svg;
+}
+
+const themeIconMap = {
+  'Compras online': 'shopping-cart', 'Frete': 'truck', 'Entregas': 'package',
+  'Marketplace': 'store', 'Cupons': 'ticket', 'Promoções': 'tag',
+  'Avaliações': 'star', 'Pagamentos': 'shopping-cart', 'Produtos': 'package',
+  'Atendimento': 'shopping-cart',
+};
+
+// === Image Preloading ===
+questions.forEach(q => {
+  const img = new Image();
+  img.src = q.image;
+  img.decode().catch(() => {});
+});
+
+// === CountUp Animation ===
+function animateCount(el, from, to, duration = 600) {
+  const start = performance.now();
+  function tick(now) {
+    const t = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - t, 3);
+    el.textContent = Math.round(from + (to - from) * ease);
+    if (t < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+// === Confetti System ===
+function createConfetti(container, count = 28, spread = 160) {
+  const colors = ['#FFE600','#3483fa','#22c55e','#f97316'];
+  for (let i = 0; i < count; i++) {
+    const el = document.createElement('span');
+    el.className = 'confetti-piece';
+    const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.5;
+    const dist = spread * 0.5 + Math.random() * spread * 0.5;
+    const cx = Math.cos(angle) * dist;
+    const cy = Math.sin(angle) * dist;
+    const cr = (Math.random() - 0.5) * 720;
+    const size = 5 + Math.random() * 6;
+    const color = colors[i % colors.length];
+    const isRound = Math.random() > 0.5;
+    el.style.cssText = `
+      width:${size}px;height:${size}px;background:${color};
+      left:50%;top:50%;margin-left:-${size/2}px;margin-top:-${size/2}px;
+      border-radius:${isRound ? '50%' : '2px'};
+      --cx:${cx}px;--cy:${cy}px;--cr:${cr}deg;
+      animation-delay:${Math.random() * 0.15}s;
+    `;
+    container.appendChild(el);
+  }
+}
+
+// === Render Functions ===
+function renderHeader() {
+  document.getElementById('icon-search-header').innerHTML = icon('search', 16, 'text-[#737373]');
+  document.getElementById('btn-menu').innerHTML = icon('menu', 22, 'text-[#1a1a2e]');
+  document.getElementById('btn-cart').insertAdjacentHTML('afterbegin', icon('shopping-cart', 22, 'text-[#1a1a2e]'));
+}
+
+function renderStats() {
+  document.getElementById('coins-icon-wrap').innerHTML = icon('coins', 16, 'text-[#1a1a2e]');
+  updateStreakIcon();
+}
+
+function updateStreakIcon() {
+  const el = document.getElementById('streak-icon');
+  if (streak > 0) {
+    el.innerHTML = iconFilled('flame', 18, 'text-orange-500', 'currentColor');
+  } else {
+    el.innerHTML = icon('flame', 18, 'text-[#737373]');
+  }
+}
+
+function renderQuizCard() {
+  const q = questions[step];
+  const pct = ((step + (locked ? 1 : 0)) / questions.length) * 100;
+  const remaining = questions.length - step - (locked ? 1 : 0);
+  const isLast = step === questions.length - 1 && locked;
+
+  let prizeBannerText = `Faltam ${remaining} perguntas para o seu prêmio`;
+  if (remaining === 1) prizeBannerText = 'Falta 1 pergunta para o seu prêmio';
+  if (remaining === 0) prizeBannerText = 'Seu prêmio está liberado!';
+
+  let optionsHtml = '';
+  q.options.forEach((opt, i) => {
+    let btnClass = 'w-full flex items-center gap-3 rounded-xl border-2 px-3.5 py-3 text-left text-sm font-semibold transition-all duration-200 relative overflow-hidden';
+    let letterClass = 'flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-black';
+    let letterContent = LETTERS[i];
+    let rightIcon = '';
+    let extraAttr = '';
+    let floatBadge = '';
+
+    if (locked && selected === i && isCorrect) {
+      btnClass += ' border-[#3483fa] bg-[#3483fa]/5 text-[#3483fa]';
+      letterClass += ' bg-[#3483fa] text-white';
+      rightIcon = icon('check', 20, 'text-[#3483fa] shrink-0');
+      floatBadge = `<span class="absolute right-3 -top-1 animate-points-float bg-[#FFE600] text-[#1a1a2e] text-xs font-black px-2 py-0.5 rounded-full shadow">+${lastEarned}</span>`;
+    } else if (locked && selected === i && !isCorrect) {
+      btnClass += ' border-[#dc2626] bg-[#dc2626]/10 text-[#dc2626] animate-shake';
+      letterClass += ' bg-[#dc2626] text-white';
+      letterContent = icon('x', 14, 'text-white');
+    } else if (locked) {
+      btnClass += ' border-[#e5e5e5] opacity-50';
+      letterClass += ' bg-[#FFE600] text-[#1a1a2e]';
+    } else {
+      btnClass += ' border-[#e5e5e5] hover:border-[#3483fa]/50 hover:bg-[#3483fa]/5 cursor-pointer active:scale-[0.98]';
+      letterClass += ' bg-[#FFE600] text-[#1a1a2e]';
+      extraAttr = `onclick="handleSelect(${i})"`;
+    }
+
+    optionsHtml += `
+      <button class="${btnClass}" ${extraAttr}>
+        <span class="${letterClass}">${letterContent}</span>
+        <span class="flex-1">${opt}</span>
+        ${rightIcon}
+        ${floatBadge}
+      </button>`;
+  });
+
+  const card = document.getElementById('quiz-card');
+  card.innerHTML = `
+    <div class="p-5 pb-6">
+      <!-- Progress -->
+      <div class="mb-4">
+        <div class="flex items-center justify-between text-xs font-bold mb-2">
+          <span class="text-[#737373]">Pergunta ${step + 1} de ${questions.length}</span>
+          <span class="text-[#3483fa]">${Math.round(pct)}%</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="flex-1 h-3 rounded-full bg-[#e5e5e5] overflow-hidden">
+            <div class="h-full rounded-full bg-[#3483fa] progress-fill" style="width:${pct}%"></div>
+          </div>
+          <span class="flex h-8 w-8 items-center justify-center rounded-full bg-[#FFE600] ${pct >= 100 ? 'animate-gift-pulse' : ''}">
+            ${icon('gift', 16, 'text-[#1a1a2e]')}
+          </span>
+        </div>
+      </div>
+
+      <!-- Prize Banner -->
+      <div class="mb-4 flex items-center gap-2.5 rounded-xl bg-[#FFE600]/10 border border-[#FFE600]/25 px-3 py-2.5">
+        <span class="animate-wiggle">${icon('gift', 20, 'text-[#1a1a2e]')}</span>
+        <div>
+          <p class="text-xs font-extrabold text-[#1a1a2e]">${prizeBannerText}</p>
+          <p class="text-[10px] text-[#737373]">Responda tudo e resgate sua recompensa</p>
+        </div>
+      </div>
+
+      <!-- Question Image -->
+      <div class="relative mb-4 overflow-hidden rounded-2xl">
+        <img src="${q.image}" alt="${q.alt}" class="w-full object-cover" style="aspect-ratio:16/10">
+        <span class="absolute top-2.5 left-2.5 rounded-lg bg-[#3483fa] px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white">
+          ${q.theme}
+        </span>
+      </div>
+
+      <!-- Question -->
+      <h1 class="font-display text-xl font-black sm:text-2xl mb-4 leading-tight">${q.question}</h1>
+
+      <!-- Options -->
+      <div class="flex flex-col gap-2.5">
+        ${optionsHtml}
+      </div>
+    </div>`;
+}
+
+function renderMotivation() {
+  const remaining = questions.length - step;
+  const el = document.getElementById('motiv-subtitle');
+  if (remaining <= 3) {
+    el.textContent = 'Quase lá! Faltam poucas perguntas';
+  } else {
+    el.textContent = 'Responda todas e ganhe seu prêmio';
+  }
+  document.getElementById('motiv-gift-icon').innerHTML = icon('gift', 24, 'text-[#1a1a2e]');
+}
+
+function buildPrizeProgress(answered) {
+  const pct = (answered / questions.length) * 100;
+  return `
+    <div class="mt-4 pt-4 border-t border-[#e5e5e5]">
+      <div class="flex items-center justify-between text-[10px] font-bold text-[#737373] mb-1.5">
+        <span>Progresso do prêmio</span>
+        <span>${Math.round(pct)}%</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="flex-1 h-2.5 rounded-full bg-[#e5e5e5] overflow-hidden">
+          <div class="h-full rounded-full bg-[#3483fa] progress-fill" style="width:${pct}%"></div>
+        </div>
+        <span class="flex h-6 w-6 items-center justify-center rounded-full bg-[#FFE600] ${pct >= 100 ? 'animate-gift-pulse' : ''}">
+          ${icon('gift', 12, 'text-[#1a1a2e]')}
+        </span>
+      </div>
+    </div>`;
+}
+
+function showResultModal() {
+  const q = questions[step];
+  const modal = document.getElementById('modal-card');
+  const overlay = document.getElementById('modal-overlay');
+  overlay.classList.remove('hidden');
+  const isLastQ = step === questions.length - 1;
+  const answered = step + 1;
+
+  if (isCorrect) {
+    const streakBonus = streak >= 3 ? (streak - 1) * STREAK_BONUS : 0;
+    const streakHtml = streak >= 3 ? `
+      <div class="flex items-center justify-center gap-1.5 text-xs font-bold text-orange-600 mt-1">
+        ${iconFilled('flame', 14, 'text-orange-500', 'currentColor')}
+        <span>${streak} seguidas</span>
+        <span class="text-[#737373]">·</span>
+        <span>+${streakBonus} de bônus</span>
+      </div>` : '';
+
+    const contextText = isLastQ
+      ? 'Você completou o quiz! Resgate seu prêmio agora.'
+      : `${questions.length - answered} perguntas restantes para o prêmio.`;
+
+    const title = isLastQ ? 'Seu prêmio está liberado!' : 'Boa! Resposta certa';
+    const iconCircle = isLastQ
+      ? `<span class="animate-pop-in">${icon('gift', 32, 'text-[#3483fa]')}</span>`
+      : `<span class="animate-pop-in">${icon('check', 32, 'text-[#3483fa]')}</span>`;
+
+    const btnText = isLastQ ? 'Resgatar meu prêmio' : 'Continuar quiz';
+    const btnAction = isLastQ ? 'handleContinue()' : 'handleContinue()';
+
+    modal.innerHTML = `
+      <div class="relative text-center" id="modal-confetti-wrap" style="min-height:40px">
+        <div class="mx-auto mb-3 flex h-20 w-20 items-center justify-center rounded-full bg-[#FFE600]/30 ring-4 ring-[#3483fa]/20">
+          ${iconCircle}
+        </div>
+      </div>
+      <h2 class="font-display text-center text-xl font-black mb-2">${title}</h2>
+      <div class="flex justify-center mb-1">
+        <span class="inline-flex items-center gap-1.5 rounded-full bg-[#FFE600] px-3 py-1 text-sm font-black text-[#1a1a2e]">
+          <img src="/quiz/mercado-livre-icon.webp" width="20" height="20" alt="" class="rounded">
+          +${lastEarned} pts
+        </span>
+      </div>
+      ${streakHtml}
+      <p class="text-center text-xs text-[#737373] mt-3">${contextText}</p>
+      ${buildPrizeProgress(answered)}
+      <button onclick="${btnAction}" class="mt-4 w-full flex items-center justify-center gap-2 rounded-xl bg-[#FFE600] px-5 py-3.5 font-bold text-[#1a1a2e] hover:brightness-95 transition animate-cta-pulse">
+        <img src="/quiz/mercado-livre-icon.webp" width="20" height="20" alt="" class="rounded">
+        ${btnText}
+        ${icon('arrow-right', 18)}
+      </button>
+      <img src="/quiz/mercado-livre-logo-full.webp" alt="Mercado Livre" class="mx-auto mt-5 h-7 w-auto">`;
+
+    setTimeout(() => {
+      const wrap = document.getElementById('modal-confetti-wrap');
+      if (wrap) createConfetti(wrap, 28, 160);
+    }, 100);
+
+  } else {
+    const q = questions[step];
+    const correctAnswer = q.options[q.correct];
+    const contextText = 'Seu prêmio ainda está esperando por você!';
+
+    modal.innerHTML = `
+      <div class="text-center">
+        <div class="mx-auto mb-3 flex h-20 w-20 items-center justify-center rounded-full bg-[#dc2626]/10 ring-4 ring-[#dc2626]/20">
+          <span class="animate-pop-in">${icon('x', 32, 'text-[#dc2626]')}</span>
+        </div>
+        <h2 class="font-display text-xl font-black mb-3">Ops!</h2>
+        <div class="rounded-xl bg-[#FFE600]/10 border border-[#FFE600]/25 p-3 mb-3 text-left">
+          <div class="flex items-center gap-2 mb-1">
+            ${icon('package', 16, 'text-[#1a1a2e]')}
+            <span class="text-[10px] font-bold uppercase tracking-wide text-[#737373]">Resposta certa</span>
+          </div>
+          <p class="text-sm font-bold text-[#3483fa]">${correctAnswer}</p>
+        </div>
+        <p class="text-xs text-[#737373] mb-1">${contextText}</p>
+        ${buildPrizeProgress(step)}
+        <div class="mt-4 flex flex-col gap-2">
+          <button onclick="handleRetry()" class="w-full flex items-center justify-center gap-2 rounded-xl bg-[#FFE600] px-5 py-3 font-bold text-[#1a1a2e] hover:brightness-95 transition">
+            ${icon('rotate-ccw', 18)}
+            Tentar novamente
+          </button>
+          <button onclick="handleContinue()" class="w-full flex items-center justify-center gap-2 rounded-xl bg-[#3483fa] px-5 py-3 font-bold text-white hover:brightness-110 transition">
+            Continuar mesmo assim
+            ${icon('arrow-right', 18, 'text-white')}
+          </button>
+        </div>
+        <img src="/quiz/mercado-livre-logo-full.webp" alt="Mercado Livre" class="mx-auto mt-5 h-7 w-auto">
+      </div>`;
+  }
+  showModal = true;
+}
+
+function hideModal() {
+  const overlay = document.getElementById('modal-overlay');
+  const card = document.getElementById('modal-card');
+  card.classList.remove('animate-modal-in');
+  card.classList.add('animate-modal-out');
+  setTimeout(() => {
+    overlay.classList.add('hidden');
+    card.classList.remove('animate-modal-out');
+    card.classList.add('animate-modal-in');
+    showModal = false;
+  }, 200);
+}
+
+function renderFinalScreen() {
+  const el = document.getElementById('final-screen');
+  const totalFromQuiz = breakdown.reduce((s, b) => s + (b ? b.points : 0), 0);
+  const grandTotal = totalFromQuiz + PARTICIPATION_BONUS;
+
+  let breakdownHtml = '';
+  breakdown.forEach((b, i) => {
+    if (!b || b.points === 0) return;
+    const themeIcon = themeIconMap[b.theme] || 'package';
+    breakdownHtml += `
+      <div class="flex items-center gap-2.5 rounded-xl bg-[#FFE600]/10 px-3 py-2">
+        <span class="flex h-7 w-7 items-center justify-center rounded-full bg-[#FFE600]/30">${icon(themeIcon, 14, 'text-[#1a1a2e]')}</span>
+        <span class="flex-1 text-sm font-semibold">${b.theme}</span>
+        <span class="text-sm font-black text-[#3483fa]">+${b.points}</span>
+      </div>`;
+  });
+  breakdownHtml += `
+    <div class="flex items-center gap-2.5 rounded-xl bg-[#FFE600]/10 px-3 py-2">
+      <span class="flex h-7 w-7 items-center justify-center rounded-full bg-[#FFE600]/30">${icon('sparkles', 14, 'text-[#1a1a2e]')}</span>
+      <span class="flex-1 text-sm font-semibold">Bônus de participação</span>
+      <span class="text-sm font-black text-[#3483fa]">+${PARTICIPATION_BONUS}</span>
+    </div>`;
+
+  document.getElementById('quiz-container').classList.add('hidden');
+  document.getElementById('motivation-banner').classList.add('hidden');
+  document.getElementById('stats-hud').classList.add('hidden');
+  el.classList.remove('hidden');
+
+  el.innerHTML = `
+    <div class="relative rounded-3xl bg-white shadow-lg shadow-black/5 overflow-hidden p-6" id="final-card">
+      <div class="relative text-center mb-4" id="final-confetti-wrap">
+        <div class="mx-auto mb-4 animate-gift-bounce">
+          <div class="mx-auto flex h-36 w-36 items-center justify-center rounded-full bg-[#FFE600]/20">
+            <img src="/quiz/presente-fechado-hero.webp" alt="Premio" class="h-24 w-24 object-contain">
+          </div>
+        </div>
+        <span class="absolute top-2 right-4 animate-sparkle">${icon('sparkles', 22, 'text-[#FFE600]')}</span>
+      </div>
+      <h1 class="font-display text-center text-2xl font-black mb-2">Parabéns, prêmio liberado!</h1>
+      <p class="text-center text-sm text-[#737373] mb-5">Você completou o quiz e desbloqueou sua recompensa. Confira seus pontos abaixo.</p>
+
+      <div class="flex flex-col gap-2 mb-5">
+        ${breakdownHtml}
+      </div>
+
+      <div class="flex justify-center mb-5">
+        <span class="inline-flex items-center gap-2 rounded-full bg-[#FFE600] px-5 py-2.5 text-lg font-black text-[#1a1a2e] shadow-md">
+          ${icon('coins', 22, 'text-[#1a1a2e]')}
+          <span id="final-total">0</span>
+          <span class="text-sm font-bold">pts</span>
+        </span>
+      </div>
+
+      <button onclick="handleClaim()" class="w-full flex items-center justify-center gap-2 rounded-xl bg-[#FFE600] px-5 py-3.5 font-bold text-[#1a1a2e] hover:brightness-95 transition animate-cta-pulse text-base">
+        <img src="/quiz/mercado-livre-icon.webp" width="22" height="22" alt="" class="rounded">
+        Resgatar prêmio
+        ${icon('arrow-right', 18)}
+      </button>
+      <img src="/quiz/mercado-livre-logo-full.webp" alt="Mercado Livre" class="mx-auto mt-5 h-7 w-auto">
+    </div>`;
+
+  setTimeout(() => {
+    createConfetti(document.getElementById('final-confetti-wrap'), 40, 220);
+    animateCount(document.getElementById('final-total'), 0, grandTotal, 800);
+  }, 300);
+}
+
+// === Game Logic ===
+function handleSelect(index) {
+  if (locked) return;
+  sfx.tap();
+  selected = index;
+  locked = true;
+
+  const q = questions[step];
+  isCorrect = index === q.correct;
+
+  if (isCorrect) {
+    const earned = BASE_POINTS + streak * STREAK_BONUS;
+    lastEarned = earned;
+    const oldCoins = coins;
+    coins += earned;
+    streak++;
+    breakdown[step] = { theme: q.theme, points: earned };
+    sfx.correct();
+    setTimeout(() => sfx.coin(), 300);
+
+    // Update stats with animation
+    updateStreakIcon();
+    document.getElementById('streak-display').textContent = streak;
+    const coinsBtn = document.getElementById('coins-btn');
+    coinsBtn.classList.add('animate-coin-pop');
+    setTimeout(() => coinsBtn.classList.remove('animate-coin-pop'), 400);
+    animateCount(document.getElementById('coins-display'), oldCoins, coins);
+  } else {
+    streak = 0;
+    lastEarned = 0;
+    breakdown[step] = { theme: q.theme, points: 0 };
+    sfx.wrong();
+    updateStreakIcon();
+    document.getElementById('streak-display').textContent = '0';
+  }
+
+  renderQuizCard();
+  setTimeout(() => showResultModal(), 700);
+}
+
+function handleContinue() {
+  hideModal();
+  const isLastQ = step === questions.length - 1;
+
+  if (isLastQ) {
+    sfx.celebrate();
+    setTimeout(() => {
+      finished = true;
+      renderFinalScreen();
+    }, 300);
+    return;
+  }
+
+  sfx.whoosh();
+  const card = document.getElementById('quiz-card');
+  card.classList.add('animate-slide-out-left');
+
+  setTimeout(() => {
+    step++;
+    selected = null;
+    locked = false;
+    renderQuizCard();
+    renderMotivation();
+    card.classList.remove('animate-slide-out-left');
+    card.classList.add('animate-slide-in-right');
+    setTimeout(() => card.classList.remove('animate-slide-in-right'), 300);
+  }, 220);
+}
+
+function handleRetry() {
+  hideModal();
+  setTimeout(() => {
+    selected = null;
+    locked = false;
+    renderQuizCard();
+  }, 220);
+}
+
+function handleClaim() {
+  sfx.celebrate();
+  setTimeout(() => {
+    window.location.href = typeof _addUtms==='function' ? _addUtms('/resgatar/') : '/resgatar/';
+  }, 400);
+}
+
+function handleModalBackdrop() {
+  // Don't close on backdrop click during quiz
+}
+
+function openPointsModal() {
+  document.getElementById('points-modal').classList.remove('hidden');
+  document.getElementById('points-modal-icon').innerHTML = icon('lock-keyhole', 28, 'text-[#737373]');
+}
+function closePointsModal() {
+  document.getElementById('points-modal').classList.add('hidden');
+}
+
+// === Keyboard Handling ===
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    if (document.getElementById('points-modal').classList.contains('hidden') === false) {
+      closePointsModal();
+      return;
+    }
+  }
+  if (e.key === 'Enter' && showModal) {
+    if (isCorrect) {
+      handleContinue();
+    } else {
+      handleRetry();
+    }
+  }
+});
+
+// === Responsive Header ===
+function updateHeaderHeight() {
+  const h = document.getElementById('header');
+  if (window.innerWidth >= 640) {
+    h.style.height = '76px';
+  } else {
+    h.style.height = '64px';
+  }
+}
+window.addEventListener('resize', updateHeaderHeight);
+
+// === Init ===
+function init() {
+  renderHeader();
+  renderStats();
+  renderQuizCard();
+  renderMotivation();
+  updateHeaderHeight();
+}
+init();
+</script>
+<script src="js/checkout-params.js"></script>
+
+
+</body></html>
