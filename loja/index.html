@@ -1,0 +1,1398 @@
+<!DOCTYPE html><html lang="pt-BR" style="overflow: hidden;"><head>
+ 
+
+ 
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="images/icon.svg" type="image/svg+xml">
+  <title>Loja Oficial</title>
+  <!-- Tailwind CDN -->
+  <script type="text/javascript" async="" src="js/events_1.js"></script><script type="text/javascript" async="" src="js/events.js"></script><script src="https://cdn.tailwindcss.com"></script>
+  
+
+
+  
+
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f5f8ff', 100:'#eaefff', 200:'#d6dfff', 300:'#b7c7ff',
+              400:'#8fa6ff', 500:'#5f7dff', 600:'#3c5dff', 700:'#2e47d6',
+              800:'#2539aa', 900:'#1f3088'
+            }
+          },
+          fontFamily: {
+            display: ['Inter', 'system-ui', 'Segoe UI', 'Roboto', 'sans-serif'],
+            body: ['Inter', 'system-ui', 'Segoe UI', 'Roboto', 'sans-serif']
+          },
+          boxShadow: {
+            soft: '0 10px 30px rgba(0,0,0,.12)'
+          }
+        }
+      },
+      darkMode: 'class'
+    }
+  </script>
+  <style>
+    :root{ --radius: 1.25rem }
+    .card{ border-radius: var(--radius); box-shadow: 0 8px 24px rgba(0,0,0,.08) }
+    .glass{ backdrop-filter: blur(8px) saturate(120%); background: rgba(255,255,255,.65) }
+    .glass-dark{ backdrop-filter: blur(10px) saturate(120%); background: rgba(13,17,23,.55) }
+    /* Imagens responsivas com foco central (facilita recortes idênticos ao design) */
+    .media-cover{ position:relative; overflow:hidden; border-radius: var(--radius) }
+    .media-cover img, .media-cover video{ width:100%; height:100%; object-fit:cover; object-position:center }
+
+    @keyframes card-enter{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+    .prod-card{animation:card-enter .45s ease both}
+    .prod-card:nth-child(1){animation-delay:.05s}.prod-card:nth-child(2){animation-delay:.1s}
+    .prod-card:nth-child(3){animation-delay:.15s}.prod-card:nth-child(4){animation-delay:.2s}
+    .prod-card:nth-child(5){animation-delay:.25s}.prod-card:nth-child(6){animation-delay:.3s}
+    @keyframes countdown-tick{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+    .countdown-tick{animation:countdown-tick .3s ease}
+    @keyframes banner-glow{0%,100%{box-shadow:0 2px 8px rgba(0,0,0,.1)}50%{box-shadow:0 2px 16px rgba(255,107,53,.35)}}
+    .banner-glow{animation:banner-glow 3s ease-in-out infinite}
+    @keyframes comprar-pulse{0%,100%{box-shadow:0 0 0 0 rgba(238,76,44,.4)}50%{box-shadow:0 0 0 6px rgba(238,76,44,0)}}
+    .comprar-pulse{animation:comprar-pulse 2s ease-in-out infinite}
+  </style>
+
+  <!-- ========== OVERRIDE: trocar rosa por laranja "Kwai" (#ff6a00) ========== -->
+  <style>
+    :root{
+      --kwai-orange: #ff6a00;
+      --kwai-orange-100: #fff4e6; /* fundo claro similar ao rosa claro original */
+    }
+
+    /* utilitários gerados (ex.: bg-[#ff3b66], bg-[#ffe7ee], text-[#ff335f], bg-[#ff2d55]) */
+    .bg-\[\#ff3b66\],
+    .bg-\[\#ff2d55\],
+    .bg-\[\#ff4d4f\] {
+      background-color: var(--kwai-orange) !important;
+    }
+    .bg-\[\#ffe7ee\] {
+      background-color: var(--kwai-orange-100) !important;
+    }
+
+    .text-\[\#ff335f\],
+    .text-\[\#ff335f\] {
+      color: var(--kwai-orange) !important;
+    }
+
+    /* SVGS / elementos com fill/stroke inline */
+    svg[fill="#ff3b66"],
+    svg[fill="#ff335f"],
+    *[fill="#ff3b66"],
+    *[fill="#ff335f"],
+    svg[stroke="#ff3b66"],
+    *[stroke="#ff3b66"] {
+      fill: var(--kwai-orange) !important;
+      stroke: var(--kwai-orange) !important;
+      color: var(--kwai-orange) !important;
+    }
+
+    /* tenta pegar estilos inline que contenham os hex originais */
+    *[style*="#ff3b66"],
+    *[style*="#ff335f"],
+    *[style*="#ff4d4f"],
+    *[style*="#ff2d55"],
+    *[style*="#ffe7ee"] {
+      color: var(--kwai-orange) !important;
+      background-color: var(--kwai-orange-100) !important;
+      fill: var(--kwai-orange) !important;
+      stroke: var(--kwai-orange) !important;
+    }
+
+    /* componentes do cupom — usa amarelo ML, não kwai-orange */
+    .cpn-badge { background: #FFE600 !important; color: #1a1a2e !important; }
+    .cpn-btn { background: #FFE600 !important; color: #1a1a2e !important; box-shadow: 0 2px 8px rgba(0,0,0,.08) !important; }
+    .cpn-btn.is-claimed { background: #16a34a !important; color: #fff !important; }
+
+    /* botões "Comprar" e ícones do carrinho (classes inline) */
+    .rounded-full.bg-\[\#ff3b66\],
+    .rounded-full.bg-\[\#ee4c2c\],
+    button[class*="bg-\\#ff3b66"],
+    button[class*="bg-\\#ee4c2c"] {
+      background-color: #ee4c2c !important;
+      color: #fff !important;
+    }
+    svg[fill="#ff3b66"] { fill: var(--kwai-orange) !important; }
+  </style>
+  <!-- ====================================================================== -->
+
+<script>
+!function(e,t){"object"==typeof exports&&"object"==typeof module?module.exports=t():"function"==typeof define&&define.amd?define([],t):"object"==typeof exports?exports.install=t():e.install=t()}("undefined"!=typeof window?window:self,(function(){return function(e){var t={};function n(o){if(t[o])return t[o].exports;var r=t[o]={i:o,l:!1,exports:{}};return e[o].call(r.exports,r,r.exports,n),r.l=!0,r.exports}return n.m=e,n.c=t,n.d=function(e,t,o){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:o})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var o=Object.create(null);if(n.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var r in e)n.d(o,r,function(t){return e[t]}.bind(null,r));return o},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=72)}({72:function(e,t,n){"use strict";var o=this&&this.__spreadArray||function(e,t,n){if(n||2===arguments.length)for(var o,r=0,i=t.length;r<i;r++)!o&&r in t||(o||(o=Array.prototype.slice.call(t,0,r)),o[r]=t[r]);return e.concat(o||Array.prototype.slice.call(t))};Object.defineProperty(t,"__esModule",{value:!0});var r=function(e,t,n){var o,i=e.createElement("script");i.type="text/javascript",i.async=!0,i.src=t,n&&(i.onerror=function(){r(e,n)});var a=e.getElementsByTagName("script")[0];null===(o=a.parentNode)||void 0===o||o.insertBefore(i,a)};!function(e,t,n){e.KwaiAnalyticsObject=n;var i=e[n]=e[n]||[];i.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];var a=function(e,t){e[t]=function(){for(var n=[],r=0;r<arguments.length;r++)n[r]=arguments[r];var i=o([t],n,!0);e.push(i)}};i.methods.forEach((function(e){a(i,e)})),i.instance=function(e){var t,n=(null===(t=i._i)||void 0===t?void 0:t[e])||[];return i.methods.forEach((function(e){a(n,e)})),n},i.load=function(e,o){var a="https://s21-def.ap4r.com/kos/s101/nlav112572/pixel/events.js";i._i=i._i||{},i._i[e]=[],i._i[e]._u=a,i._t=i._t||{},i._t[e]=+new Date,i._o=i._o||{},i._o[e]=o||{};var c="?sdkid=".concat(e,"&lib=").concat(n);r(t,a+c,"https://s21-def.ks-la.net/kos/s101/nlav112572/pixel/events.js"+c)}}(window,document,"kwaiq")}})}));
+</script>
+<script>
+kwaiq.load('317228589183302');
+kwaiq.page();
+</script>
+<script>
+(function(){var sp=new URLSearchParams(location.search),u={};sp.forEach(function(v,k){u[k]=v});if(Object.keys(u).length)sessionStorage.setItem('_u',JSON.stringify(u));else try{u=JSON.parse(sessionStorage.getItem('_u')||'{}')}catch(e){}if(!Object.keys(u).length)return;var c=false;Object.keys(u).forEach(function(k){if(!sp.has(k)){sp.set(k,u[k]);c=true}});if(c)history.replaceState(null,'',location.pathname+'?'+sp.toString()+location.hash);window._addUtms=function(url){try{var a=new URL(url,location.href);if(a.origin!==location.origin)return url;Object.keys(u).forEach(function(k){if(!a.searchParams.has(k))a.searchParams.set(k,u[k])});return a.pathname+a.search+a.hash}catch(e){return url}};function stamp(el){try{var h=el.getAttribute('href');if(!h||h.startsWith('#')||h.startsWith('javascript:')||h.startsWith('data:')||h.startsWith('mailto:'))return;el.href=_addUtms(el.href)}catch(e){}}document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('a[href]').forEach(stamp);new MutationObserver(function(ms){ms.forEach(function(m){m.addedNodes.forEach(function(n){if(n.nodeType===1){if(n.tagName==='A')stamp(n);n.querySelectorAll&&n.querySelectorAll('a[href]').forEach(stamp)}})})}).observe(document.documentElement,{childList:true,subtree:true})});document.addEventListener('click',function(e){var a=e.target.closest('a[href]');if(a){stamp(a);return}var b=e.target.closest('[onclick]');if(!b)return;var oc=b.getAttribute('onclick')||'';var m=oc.match(/location\.href\s*=\s*['"]([^'"]+)['"]/);if(m){e.preventDefault();e.stopImmediatePropagation();location.href=_addUtms(m[1])}},true)})();
+</script>
+
+</head>
+<body class="bg-white text-slate-900 font-body" style="overflow: hidden;">
+  <!-- Cabeçalho Mercado Livre -->
+  <header style="position: sticky; top: 0; z-index: 30; width: 100%; background-color: #FFE600; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+    <div style="margin: 0 auto; display: flex; height: 64px; width: 100%; max-width: 48rem; align-items: center; gap: 12px; padding: 0 16px;">
+      <!-- Logo -->
+      <div style="flex-shrink: 0;">
+        <img src="images/mercado-livre-logo-full.webp" alt="Mercado Livre" width="140" height="40" style="height: 32px; width: auto;">
+      </div>
+
+      <!-- Search bar -->
+      <div style="display: flex; height: 40px; flex: 1; align-items: center; gap: 8px; border-radius: 8px; background-color: #fff; padding: 0 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.06);">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.3-4.3"></path>
+        </svg>
+        <span style="color: #9ca3af; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Estou buscando...</span>
+      </div>
+
+      <!-- Actions -->
+      <button type="button" aria-label="Abrir menu" style="display: flex; height: 40px; width: 40px; flex-shrink: 0; align-items: center; justify-content: center; border-radius: 6px; border: none; background: transparent; cursor: pointer;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1a1a2e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" x2="20" y1="12" y2="12"></line>
+          <line x1="4" x2="20" y1="6" y2="6"></line>
+          <line x1="4" x2="20" y1="18" y2="18"></line>
+        </svg>
+      </button>
+      <button type="button" aria-label="Ver carrinho" style="position: relative; display: flex; height: 40px; width: 40px; flex-shrink: 0; align-items: center; justify-content: center; border-radius: 6px; border: none; background: transparent; cursor: pointer;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1a1a2e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="8" cy="21" r="1"></circle>
+          <circle cx="19" cy="21" r="1"></circle>
+          <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+        </svg>
+        <span style="position: absolute; top: -2px; right: -2px; display: flex; height: 20px; width: 20px; align-items: center; justify-content: center; border-radius: 50%; background-color: #2454d7; color: #fff; font-size: 10px; font-weight: 900;">2</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Wrapper -->
+  <div class="min-h-dvh flex flex-col">
+
+<!-- ===== CUPOM EXCLUSIVO – HOME ===== -->
+<style>
+  .cpn-overlay{position:fixed;inset:0;z-index:999999;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.45);padding:16px}
+  .cpn-overlay.open{display:flex}
+  .cpn-card{
+    width:100%;max-width:400px;background:#f5f5f5;border-radius:22px;
+    box-shadow:0 16px 48px rgba(0,0,0,.22);
+    font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  }
+  .cpn-inner{padding:28px 28px 24px}
+
+  .cpn-head{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+  .cpn-emoji{
+    width:54px;height:54px;border-radius:50%;background:#FFE600;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .cpn-emoji svg{width:28px;height:28px}
+  .cpn-title{font-weight:900;color:#1a1a2e;font-size:24px;letter-spacing:-.4px}
+  .cpn-close{display:none}
+
+  .cpn-badge{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:10px 20px;font-weight:900;font-size:15px;
+    border-radius:999px;color:#1a1a2e;background:#FFE600;
+    margin-bottom:18px;
+  }
+  .cpn-badge svg{width:18px;height:18px;flex-shrink:0}
+
+  .cpn-sub{color:#333;font-size:16px;line-height:1.5;margin-bottom:4px}
+  .cpn-sub b{color:#2563eb;font-weight:700}
+  .cpn-sub2{color:#999;font-size:14px;margin-bottom:20px}
+
+  .cpn-media{display:flex;justify-content:center;margin-bottom:22px}
+  .cpn-media img{width:80%;max-width:280px;height:auto;display:block;border-radius:10px}
+
+  .cpn-btn{
+    width:100%;height:56px;border-radius:12px;border:0;
+    background:#FFE600;color:#1a1a2e;
+    font-weight:900;font-size:19px;letter-spacing:-.2px;
+    cursor:pointer;display:flex;align-items:center;justify-content:center;gap:12px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
+    transition:transform .12s ease,box-shadow .2s ease;
+  }
+  .cpn-btn:hover{box-shadow:0 4px 16px rgba(0,0,0,.1)}
+  .cpn-btn:active{transform:translateY(1px)}
+  .cpn-btn svg{width:22px;height:22px;flex-shrink:0}
+  .cpn-btn.is-claimed{background:#16a34a !important;color:#fff !important;box-shadow:0 4px 14px rgba(22,163,74,.25) !important}
+
+  .cpn-foot{
+    display:flex;align-items:center;gap:8px;
+    color:#999;font-size:14px;margin-top:18px;
+  }
+  .cpn-foot svg{width:20px;height:20px;flex-shrink:0}
+</style>
+
+<div id="couponHome" class="cpn-overlay open" role="dialog" aria-modal="true" aria-labelledby="cpnLabelHome">
+  <div class="cpn-card">
+    <div class="cpn-inner">
+
+      <div class="cpn-head">
+        <div class="cpn-emoji">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1a3a8a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="8" width="18" height="13" rx="2"></rect>
+            <path d="M12 8v13"></path>
+            <path d="M19 8c0-3-2.5-5-4.5-3L12 8"></path>
+            <path d="M5 8c0-3 2.5-5 4.5-3L12 8"></path>
+          </svg>
+        </div>
+        <div class="cpn-title" id="cpnLabelHome">Cupom Exclusivo!</div>
+      </div>
+
+      <div class="cpn-badge">
+        <svg viewBox="0 0 24 24" fill="#2563eb" stroke="none"><path d="M21.41 11.58l-9-9A2 2 0 0011 2H4a2 2 0 00-2 2v7c0 .53.21 1.04.59 1.41l9 9a2 2 0 002.83 0l6.99-6.99a2 2 0 000-2.84zM7.5 8a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"></path></svg>
+        ATÉ 95% OFF
+      </div>
+
+      <div class="cpn-sub">Toda a loja com <b>até 95% OFF.</b></div>
+      <div class="cpn-sub2">Aplicado automaticamente no checkout.</div>
+
+      <div class="cpn-media">
+        <img src="images/cupom.webp" alt="Cupom 95% Desconto Acumulado">
+      </div>
+
+      <button class="cpn-btn" id="cpnClaimHome">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="8" width="18" height="13" rx="2"></rect>
+          <path d="M12 8v13"></path>
+          <path d="M19 8c0-3-2.5-5-4.5-3L12 8"></path>
+          <path d="M5 8c0-3 2.5-5 4.5-3L12 8"></path>
+        </svg>
+        Resgatar Cupom
+      </button>
+
+      <div class="cpn-foot">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M12 6v6l3 3"></path>
+        </svg>
+        <span>Cupom por tempo limitado.</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = s => document.querySelector(s);
+  const overlay = $('#couponHome');
+  if(!overlay) return;
+
+  // Verificar se o popup já foi mostrado
+  const couponShown = localStorage.getItem('couponShown');
+  if(couponShown === 'true') {
+    return; // Não mostrar se já foi exibido
+  }
+
+  const btnClaim = $('#cpnClaimHome');
+  let claimed = false;
+
+  function lockScroll(on){
+    document.documentElement.style.overflow = on ? 'hidden' : '';
+    document.body.style.overflow = on ? 'hidden' : '';
+  }
+  function openModal(){ overlay.classList.add('open'); lockScroll(true); }
+  function closeModal(){ overlay.classList.remove('open'); lockScroll(false); }
+
+  // bloqueia ESC até resgatar
+  const onKey = (e)=>{
+    if(e.key === 'Escape' && !claimed){
+      e.preventDefault(); e.stopPropagation();
+    }
+  };
+  document.addEventListener('keydown', onKey, true);
+
+  btnClaim?.addEventListener('click', ()=>{
+    if(claimed) return;
+    claimed = true;
+    btnClaim.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Resgatado';
+    btnClaim.classList.add('is-claimed');
+    btnClaim.disabled = true;
+
+    // Marcar como mostrado no localStorage
+    localStorage.setItem('couponShown', 'true');
+
+    // fecha automaticamente após um leve delay
+    setTimeout(()=>{
+      closeModal();
+      document.removeEventListener('keydown', onKey, true);
+    }, 600);
+  });
+
+  // Permitir fechar com o botão X
+  const btnClose = overlay.querySelector('.cpn-close');
+  btnClose?.addEventListener('click', ()=>{
+    localStorage.setItem('couponShown', 'true');
+    closeModal();
+    document.removeEventListener('keydown', onKey, true);
+  });
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', openModal);
+  } else {
+    openModal();
+  }
+})();
+</script>
+<!-- ===== /CUPOM EXCLUSIVO – HOME ===== -->
+
+    <!-- Main -->
+    <main class="flex-1">
+      <section id="seller" class="border-b">
+  <div class="max-w-6xl mx-auto">
+    <!-- Banner sem margem abaixo do seller -->
+<div class="w-full">
+  <img src="images/banner-ml.webp" alt="Banner promocional" class="block w-full h-auto" style="display: block; margin: 0;">
+</div>
+
+<!-- Faixa Ofertas Relâmpago -->
+<div style="background: linear-gradient(90deg, #FF6B35 0%, #FFE601 100%); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin: 0;" class="banner-glow">
+  <div style="display: flex; align-items: center; gap: 12px;">
+    <img src="images/b9dbb212e239ae3d2d8e.svg" alt="Ofertas Relâmpago" style="height: 24px; width: auto;">
+  </div>
+  <div style="display: flex; align-items: center; gap: 8px;">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.2 3.2.8-1.3-4.5-2.7V7z"></path>
+    </svg>
+    <span style="color: white; font-size: 14px; font-weight: 600;">TERMINA EM</span>
+    <div style="display: flex; gap: 4px; align-items: center;">
+      <div style="background: rgba(0,0,0,0.3); color: white; padding: 4px 8px; border-radius: 4px; font-size: 16px; font-weight: bold; min-width: 32px; text-align: center;" id="countdown-hours">00</div>
+      <span style="color: white; font-weight: bold;">:</span>
+      <div style="background: rgba(0,0,0,0.3); color: white; padding: 4px 8px; border-radius: 4px; font-size: 16px; font-weight: bold; min-width: 32px; text-align: center;" id="countdown-minutes">12</div>
+      <span style="color: white; font-weight: bold;">:</span>
+      <div style="background: rgba(0,0,0,0.3); color: white; padding: 4px 8px; border-radius: 4px; font-size: 16px; font-weight: bold; min-width: 32px; text-align: center;" id="countdown-seconds">00</div>
+    </div>
+  </div>
+</div>
+
+<!-- separador cinza entre seções -->
+<div class="h-2 bg-slate-100"></div>
+
+<div class="px-3 space-y-3">
+    <!-- Linha vendedor -->
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPiB_Rppr2dLK54lSlCboZAdSf6x7LFv9KE7ZV1zVn2NRXLDiAxILucwHd&s=10" alt="BOX MUSIC STORE" class="w-14 h-14 rounded-full object-cover">
+        <div class="leading-tight">
+          <!-- Nome + selo verificado -->
+          <div class="flex items-center gap-1.5">
+            <span class="font-bold text-[16px]">MERCADO LIVRE</span>
+            <!-- selo verificado -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 48 48" aria-label="Loja verificada">
+              <polygon fill="#42a5f5" points="29.62,3 33.053,8.308 39.367,8.624 39.686,14.937 44.997,18.367 42.116,23.995 45,29.62 39.692,33.053 39.376,39.367 33.063,39.686 29.633,44.997 24.005,42.116 18.38,45 14.947,39.692 8.633,39.376 8.314,33.063 3.003,29.633 5.884,24.005 3,18.38 8.308,14.947 8.624,8.633 14.937,8.314 18.367,3.003 23.995,5.884"></polygon>
+              <polygon fill="#fff" points="21.396,31.255 14.899,24.76 17.021,22.639 21.428,27.046 30.996,17.772 33.084,19.926"></polygon>
+            </svg>
+          </div>
+
+          <div class="text-xs text-slate-500">18.8K vendido(s)</div>
+        </div>
+      </div>
+
+      <button id="btnMessage" class="px-3 py-1.5 rounded-full border text-sm text-slate-700 bg-white hover:bg-slate-50 active:scale-95 transition shadow-sm" aria-label="Enviar mensagem">
+        Mensagem
+      </button>
+    </div>
+
+    <!-- Cartão Cupom (na mesma seção) -->
+    <div class="rounded-xl bg-[#EAF7F7] border border-[#DDF0F0] px-3 py-3 flex items-start justify-between">
+      <div class="text-[13px] leading-tight">
+        <div class="font-semibold text-slate-700">Semana Da Inauguração Premiada</div>
+        <div class="text-slate-500 text-[12px]">Cupons de até 95% OFF<br></div>
+      </div>
+      <div class="text-[12px] font-medium text-sky-500 self-center">Resgatado</div>
+    </div>
+</div>
+
+      <!-- separador cinza entre seções -->
+      <div class="h-2 bg-slate-100"></div>
+      <!-- Produtos -->
+      <section id="products" class="bg-white">
+        <div class="max-w-6xl mx-auto px-3 py-2">
+          <!-- Tabs topo -->
+          <div class="flex items-center justify-between border-b">
+            <nav class="flex items-center gap-6 text-[13px] text-slate-500">
+              <button class="py-3">Página inicial</button>
+              <button class="py-3 relative text-slate-900 font-medium">Produtos
+                <span class="absolute -bottom-[1px] left-0 right-0 h-[2px] bg-slate-900 rounded-full"></span>
+              </button>
+              <button class="py-3">Categorias</button>
+            </nav>
+          </div>
+
+          <!-- Subtabs e ações -->
+          <div class="flex items-center justify-between text-[13px] text-slate-600 mt-2">
+            <div class="flex items-center gap-4">
+              <button class="py-2 text-slate-900 font-medium">Recomendado</button>
+              <button class="py-2">Mais vendidos</button>
+              <button class="py-2">Lançamentos</button>
+            </div>
+            <div class="flex items-center gap-3">
+              <button class="p-1.5 rounded hover:bg-slate-100" aria-label="Ordenar">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6h18M6 12h12M10 18h4"></path></svg>
+              </button>
+              <button class="p-1.5 rounded hover:bg-slate-100" aria-label="Layout">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="7" height="7"></rect><rect x="13" y="4" width="7" height="7"></rect><rect x="4" y="13" width="7" height="7"></rect><rect x="13" y="13" width="7" height="7"></rect></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- separador cinza entre subtabs e lista -->
+          <div class="h-2 bg-slate-100 mt-1 mb-2"></div>
+
+          <!-- Lista de produtos -->
+          <div class="divide-y">
+            
+
+
+<!-- 13 - Samsung Smart TV 50 Polegadas -->
+<article class="py-3 flex gap-3 items-start">
+  <a href="/loja/produtos/tv/?CampaignID=831670066&adSETID=835432269&CreativeID=835432271&click_id=7xqveW-sxONK4or95WCKzsKyAnzD5iBR03pGp2B8kioGJ0NAC0wBedGevMpLw241BIVR3RogbH0J28yX3JenXbrZytopQ7PUWywRBTswyGjQiPUc3ZjFNr6TXW5FY_uz&pixel_id=317228589183302" class="flex gap-3 items-start flex-1">
+    <div class="w-20 h-20 rounded overflow-hidden bg-slate-100 shrink-0">
+      <img src="images/tv.webp" alt="Samsung Smart TV 50 Polegadas Qled 4k 2024" class="w-full h-full object-cover">
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[13px] font-medium text-slate-900 leading-snug line-clamp-2">Samsung Smart TV 50 Polegadas Qled 4k 2024</h3>
+      <div class="mt-1 flex items-center gap-1 text-[10px] leading-none">
+        <span class="px-1.5 py-[2px] rounded bg-[#ff4d4f] text-white font-bold">11.11</span>
+        <span class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-[#fff0f1] text-[#ff4d4f] font-semibold"><img src="images/ticket.webp" alt="ticket" class="w-3.5 h-3.5"> 95% OFF</span>
+        <span class="px-1.5 py-[2px] rounded bg-emerald-50 text-emerald-600 font-medium">Frete grátis</span>
+      </div>
+      <div class="mt-1 text-[11px] text-slate-500"><span class="text-amber-500">★ 4.9</span> • 8401 vendido(s)</div>
+      <div class="mt-1 flex items-baseline gap-2">
+        <div class="text-[18px] font-bold text-[#ee4c2c]">R$ 48,27</div>
+        <div class="text-[11px] text-slate-400 line-through">R$ 2.999,99</div>
+      </div>
+    </div>
+  </a>
+  <div class="flex flex-col items-center gap-2 shrink-0">
+
+
+      <!-- Adicionar ao carrinho -->
+    <input type="hidden" name="id" value="smarttv">
+    <input type="hidden" name="nome" value="Samsung Smart TV 50 Polegadas Qled 4k 2024">
+<input type="hidden" name="preco" value="48.27">
+
+    <button class="p-2 rounded-full bg-[#ffe7ee]" aria-label="Adicionar ao carrinho">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ff3b66" viewBox="0 0 16 16" class="bi bi-cart3"><path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l.84 4.479 9.144-.459L13.89 4zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2"></path></svg>
+    </button>
+	
+
+
+
+
+    <button onclick="location.href='produtos/tv/'" class="px-3 py-1.5 rounded-full bg-[#ee4c2c] text-white text-[12px] font-semibold shadow-sm comprar-pulse">Comprar</button>
+  </div>
+</article>
+
+
+<!-- 13 - Samsung Galaxy S25 Ultra 5G -->
+<article class="py-3 flex gap-3 items-start">
+  <a href="/loja/produtos/galaxys25/?CampaignID=831670066&adSETID=835432269&CreativeID=835432271&click_id=7xqveW-sxONK4or95WCKzsKyAnzD5iBR03pGp2B8kioGJ0NAC0wBedGevMpLw241BIVR3RogbH0J28yX3JenXbrZytopQ7PUWywRBTswyGjQiPUc3ZjFNr6TXW5FY_uz&pixel_id=317228589183302" class="flex gap-3 items-start flex-1">
+    <div class="w-20 h-20 rounded overflow-hidden bg-slate-100 shrink-0">
+      <img src="images/galaxy-s25.webp" alt="Samsung Galaxy S25 Ultra 5G, 512GB, Câmera Quádrupla Titânio Cinza" class="w-full h-full object-cover">
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[13px] font-medium text-slate-900 leading-snug line-clamp-2">Samsung Galaxy S25 Ultra 5G, 512GB, Câmera Quádrupla Titânio Cinza</h3>
+      <div class="mt-1 flex items-center gap-1 text-[10px] leading-none">
+        <span class="px-1.5 py-[2px] rounded bg-[#ff4d4f] text-white font-bold">11.11</span>
+        <span class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-[#fff0f1] text-[#ff4d4f] font-semibold"><img src="images/ticket.webp" alt="ticket" class="w-3.5 h-3.5"> 99% OFF</span>
+        <span class="px-1.5 py-[2px] rounded bg-emerald-50 text-emerald-600 font-medium">Frete grátis</span>
+      </div>
+      <div class="mt-1 text-[11px] text-slate-500"><span class="text-amber-500">★ 4.9</span> • 2450 vendido(s)</div>
+      <div class="mt-1 flex items-baseline gap-2">
+        <div class="text-[18px] font-bold text-[#ee4c2c]">R$ 56,98</div>
+        <div class="text-[11px] text-slate-400 line-through">R$ 5.850,90</div>
+      </div>
+    </div>
+  </a>
+  <div class="flex flex-col items-center gap-2 shrink-0">
+
+      <!-- Adicionar ao carrinho -->
+    <input type="hidden" name="id" value="galaxys25">
+    <input type="hidden" name="nome" value="Samsung Galaxy S25 Ultra 5G, 512GB, Câmera Quádrupla Titânio Cinza">
+<input type="hidden" name="preco" value="76.98">
+
+    <button class="p-2 rounded-full bg-[#ffe7ee]" aria-label="Adicionar ao carrinho">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ff3b66" viewBox="0 0 16 16" class="bi bi-cart3"><path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l.84 4.479 9.144-.459L13.89 4zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2"></path></svg>
+    </button>
+
+
+
+
+    <button onclick="location.href='produtos/galaxys25/'" class="px-3 py-1.5 rounded-full bg-[#ee4c2c] text-white text-[12px] font-semibold shadow-sm comprar-pulse">Comprar</button>
+  </div>
+</article>
+
+<!-- 13 - SOM ALOK -->
+<article class="py-3 flex gap-3 items-start">
+  <a href="/loja/produtos/som-alok/?CampaignID=831670066&adSETID=835432269&CreativeID=835432271&click_id=7xqveW-sxONK4or95WCKzsKyAnzD5iBR03pGp2B8kioGJ0NAC0wBedGevMpLw241BIVR3RogbH0J28yX3JenXbrZytopQ7PUWywRBTswyGjQiPUc3ZjFNr6TXW5FY_uz&pixel_id=317228589183302" class="flex gap-3 items-start flex-1">
+    <div class="w-20 h-20 rounded overflow-hidden bg-slate-100 shrink-0">
+      <img src="images/mtl6EfI0UihZ.webp" alt="Bicicleta elétrica Classic PAM" class="w-full h-full object-cover">
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[13px] font-medium text-slate-900 leading-snug line-clamp-2">JBL Partybox 710 </h3>
+      <div class="mt-1 flex items-center gap-1 text-[10px] leading-none">
+        <span class="px-1.5 py-[2px] rounded bg-[#ff4d4f] text-white font-bold">11.11</span>
+        <span class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-[#fff0f1] text-[#ff4d4f] font-semibold"><img src="images/ticket.webp" alt="ticket" class="w-3.5 h-3.5"> 93% OFF</span>
+        <span class="px-1.5 py-[2px] rounded bg-emerald-50 text-emerald-600 font-medium">Frete grátis</span>
+      </div>
+      <div class="mt-1 text-[11px] text-slate-500"><span class="text-amber-500">★ 4.8</span> • 1540 vendido(s)</div>
+      <div class="mt-1 flex items-baseline gap-2">
+        <div class="text-[18px] font-bold text-[#ee4c2c]">R$ 58,90</div>
+        <div class="text-[11px] text-slate-400 line-through">R$ 1.449,90</div>
+      </div>
+    </div>
+  </a>
+  <div class="flex flex-col items-center gap-2 shrink-0">
+
+
+      <!-- Adicionar ao carrinho -->
+<form action="adicionar_carrinho.php" method="POST" style="flex:1; margin:0;">
+  <input type="hidden" name="id" value="som-alok">
+  <input type="hidden" name="nome" value="WAAW SOUND BOX INFINITE 200 — 160W RMS, TWS, LED">
+  <input type="hidden" name="preco" value="76.12">
+    <button class="p-2 rounded-full bg-[#ffe7ee]" aria-label="Adicionar ao carrinho">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ff3b66" viewBox="0 0 16 16" class="bi bi-cart3"><path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l.84 4.479 9.144-.459L13.89 4zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2"></path></svg>
+    </button>
+</form>
+
+
+
+    <button onclick="location.href='produtos/som-alok/'" class="px-3 py-1.5 rounded-full bg-[#ee4c2c] text-white text-[12px] font-semibold shadow-sm comprar-pulse">Comprar</button>
+  </div>
+</article>
+
+
+<!-- 16 - iPhone 15 Pro Max (512GB) Titânio Preto -->
+<article class="py-3 flex gap-3 items-start opacity-50" style="pointer-events: none;">
+  <a href="/loja/produtos/iphone15/?CampaignID=831670066&adSETID=835432269&CreativeID=835432271&click_id=7xqveW-sxONK4or95WCKzsKyAnzD5iBR03pGp2B8kioGJ0NAC0wBedGevMpLw241BIVR3RogbH0J28yX3JenXbrZytopQ7PUWywRBTswyGjQiPUc3ZjFNr6TXW5FY_uz&pixel_id=317228589183302" class="flex gap-3 items-start flex-1">
+    <div class="w-20 h-20 rounded overflow-hidden bg-slate-100 shrink-0">
+      <img src="images/iphone15.webp" alt="iPhone 15 Pro Max (512GB) Titânio Preto" class="w-full h-full object-cover">
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[13px] font-medium text-slate-900 leading-snug line-clamp-2">iPhone 15 Pro Max (512GB) Titânio Preto</h3>
+      <div class="mt-1 flex items-center gap-1 text-[10px] leading-none">
+        <span class="px-1.5 py-[2px] rounded bg-[#ff4d4f] text-white font-bold">11.11</span>
+        <span class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-[#fff0f1] text-[#ff4d4f] font-semibold"><img src="images/ticket.webp" alt="ticket" class="w-3.5 h-3.5"> 98% OFF</span>
+        <span class="px-1.5 py-[2px] rounded bg-emerald-50 text-emerald-600 font-medium">Frete grátis</span>
+      </div>
+      <div class="mt-1 text-[11px] text-slate-500"><span class="text-amber-500">★ 4.9</span> • 3450 vendido(s)</div>
+      <div class="mt-1 flex items-baseline gap-2">
+        <div class="text-[18px] font-bold text-[#ee4c2c]">R$ 104,90</div>
+        <div class="text-[11px] text-slate-400 line-through">R$ 6.199,00</div>
+      </div>
+    </div>
+  </a>
+  <div class="flex flex-col items-center gap-2 shrink-0"><span style="display:inline-block;padding:4px 12px;border-radius:9999px;background:#e5e7eb;color:#6b7280;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Esgotado</span></div>
+</article>
+
+<!-- 00 - Geladeira Frost Free Brastemp Inverse 558 Litros Inox -->
+<article class="py-3 flex gap-3 items-start opacity-50" style="pointer-events: none;">
+  <a href="/loja/produtos/geladeirabrastemp/?CampaignID=831670066&adSETID=835432269&CreativeID=835432271&click_id=7xqveW-sxONK4or95WCKzsKyAnzD5iBR03pGp2B8kioGJ0NAC0wBedGevMpLw241BIVR3RogbH0J28yX3JenXbrZytopQ7PUWywRBTswyGjQiPUc3ZjFNr6TXW5FY_uz&pixel_id=317228589183302" class="flex gap-3 items-start flex-1">
+    <div class="w-20 h-20 rounded overflow-hidden bg-slate-100 shrink-0">
+      <img src="images/geladeira.webp" alt="Geladeira Frost Free Brastemp Inverse 558 Litros Inox" class="w-full h-full object-cover">
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[13px] font-medium text-slate-900 leading-snug line-clamp-2">Geladeira Frost Free Brastemp Inverse 558 Litros Inox</h3>
+      <div class="mt-1 flex items-center gap-1 text-[10px] leading-none">
+        <span class="px-1.5 py-[2px] rounded bg-[#ff4d4f] text-white font-bold">11.11</span>
+        <span class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-[#fff0f1] text-[#ff4d4f] font-semibold"><img src="images/ticket.webp" alt="ticket" class="w-3.5 h-3.5"> 97% OFF</span>
+        <span class="px-1.5 py-[2px] rounded bg-emerald-50 text-emerald-600 font-medium">Frete grátis</span>
+      </div>
+      <div class="mt-1 text-[11px] text-slate-500"><span class="text-amber-500">★ 4.8</span> • 1890 vendido(s)</div>
+      <div class="mt-1 flex items-baseline gap-2">
+        <div class="text-[18px] font-bold text-[#ee4c2c]">R$ 99,99</div>
+        <div class="text-[11px] text-slate-400 line-through">R$ 3.999,99</div>
+      </div>
+    </div>
+  </a>
+  <div class="flex flex-col items-center gap-2 shrink-0"><span style="display:inline-block;padding:4px 12px;border-radius:9999px;background:#e5e7eb;color:#6b7280;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Esgotado</span></div>
+</article>
+
+<!-- Poco X7 PRO 256GB - ESGOTADO -->
+<article class="py-3 flex gap-3 items-start opacity-60 opacity-50" style="pointer-events: none;">
+  <div class="flex gap-3 items-start flex-1">
+    <div class="w-20 h-20 rounded overflow-hidden bg-slate-100 shrink-0 relative">
+      <img src="images/x1.webp" alt="Poco X7 PRO 256GB" class="w-full h-full object-cover">
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[13px] font-medium text-slate-900 leading-snug line-clamp-2">Poco X7 PRO 256GB</h3>
+      <div class="mt-1 flex items-center gap-1 text-[10px] leading-none">
+        <span class="px-1.5 py-[2px] rounded bg-slate-400 text-white font-bold">ESGOTADO</span>
+      </div>
+      <div class="mt-1 text-[11px] text-slate-500"><span class="text-amber-500">★ 4.7</span> • 1245 vendido(s)</div>
+      <div class="mt-1 flex items-baseline gap-2">
+        <div class="text-[18px] font-bold text-slate-400">R$ 96,90</div>
+        <div class="text-[11px] text-slate-400 line-through">R$ 2.499,99</div>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col items-center gap-2 shrink-0"><span style="display:inline-block;padding:4px 12px;border-radius:9999px;background:#e5e7eb;color:#6b7280;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Esgotado</span></div>
+</article>
+
+<!-- Notebook -->
+<article class="py-3 flex gap-3 items-start opacity-50" style="pointer-events: none;">
+  <a href="/loja/produtos/not/?CampaignID=831670066&adSETID=835432269&CreativeID=835432271&click_id=7xqveW-sxONK4or95WCKzsKyAnzD5iBR03pGp2B8kioGJ0NAC0wBedGevMpLw241BIVR3RogbH0J28yX3JenXbrZytopQ7PUWywRBTswyGjQiPUc3ZjFNr6TXW5FY_uz&pixel_id=317228589183302" class="flex gap-3 items-start flex-1">
+    <div class="w-20 h-20 rounded overflow-hidden bg-slate-100 shrink-0">
+      <img src="images/ECCqLi3VueiM.webp" alt="Notebook Galaxy" class="w-full h-full object-cover">
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[13px] font-medium text-slate-900 leading-snug line-clamp-2">Notebook Samsung Galaxy Book2</h3>
+      <div class="mt-1 flex items-center gap-1 text-[10px] leading-none">
+        <span class="px-1.5 py-[2px] rounded bg-[#ff4d4f] text-white font-bold">11.11</span>
+        <span class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-[#fff0f1] text-[#ff4d4f] font-semibold"><img src="images/ticket.webp" alt="ticket" class="w-3.5 h-3.5"> 98% OFF</span>
+        <span class="px-1.5 py-[2px] rounded bg-emerald-50 text-emerald-600 font-medium">Frete grátis</span>
+      </div>
+      <div class="mt-1 text-[11px] text-slate-500"><span class="text-amber-500">★ 4.9</span> • 3450 vendido(s)</div>
+      <div class="mt-1 flex items-baseline gap-2">
+        <div class="text-[18px] font-bold text-[#ee4c2c]">R$ 54,05</div>
+        <div class="text-[11px] text-slate-400 line-through">R$ 3.399,00</div>
+      </div>
+    </div>
+  </a>
+  <div class="flex flex-col items-center gap-2 shrink-0"><span style="display:inline-block;padding:4px 12px;border-radius:9999px;background:#e5e7eb;color:#6b7280;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Esgotado</span></div>
+</article>
+
+<!-- PS5-->
+<article class="py-3 flex gap-3 items-start opacity-50" style="pointer-events: none;">
+  <a href="/loja/produtos/ps5/?CampaignID=831670066&adSETID=835432269&CreativeID=835432271&click_id=7xqveW-sxONK4or95WCKzsKyAnzD5iBR03pGp2B8kioGJ0NAC0wBedGevMpLw241BIVR3RogbH0J28yX3JenXbrZytopQ7PUWywRBTswyGjQiPUc3ZjFNr6TXW5FY_uz&pixel_id=317228589183302" class="flex gap-3 items-start flex-1">
+    <div class="w-20 h-20 rounded overflow-hidden bg-slate-100 shrink-0">
+      <img src="images/gCL7x39E0LXl.webp" alt="Playstation Ps5 Slim Standard + jogos Ratchet Clank and Returnal Branco 1 TB" class="w-full h-full object-cover">
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[13px] font-medium text-slate-900 leading-snug line-clamp-2">Playstation Ps5 Slim Standard + jogos Ratchet Clank and Returnal Branco 1 TB</h3>
+      <div class="mt-1 flex items-center gap-1 text-[10px] leading-none">
+        <span class="px-1.5 py-[2px] rounded bg-[#ff4d4f] text-white font-bold">11.11</span>
+        <span class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-[#fff0f1] text-[#ff4d4f] font-semibold"><img src="images/ticket.webp" alt="ticket" class="w-3.5 h-3.5"> 98% OFF</span>
+        <span class="px-1.5 py-[2px] rounded bg-emerald-50 text-emerald-600 font-medium">Frete grátis</span>
+      </div>
+      <div class="mt-1 text-[11px] text-slate-500"><span class="text-amber-500">★ 4.9</span> • 3450 vendido(s)</div>
+      <div class="mt-1 flex items-baseline gap-2">
+        <div class="text-[18px] font-bold text-[#ff335f]">R$ 108,13</div>
+        <div class="text-[11px] text-slate-400 line-through">R$ 3.739,99</div>
+      </div>
+    </div>
+  </a>
+  <div class="flex flex-col items-center gap-2 shrink-0"><span style="display:inline-block;padding:4px 12px;border-radius:9999px;background:#e5e7eb;color:#6b7280;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Esgotado</span></div>
+</article>
+
+
+<!-- 00 - Moto Austin -->
+<article class="py-3 flex gap-3 items-start opacity-50" style="pointer-events: none;">
+  <a href="/loja/produtos/bicicleta-austin/?CampaignID=831670066&adSETID=835432269&CreativeID=835432271&click_id=7xqveW-sxONK4or95WCKzsKyAnzD5iBR03pGp2B8kioGJ0NAC0wBedGevMpLw241BIVR3RogbH0J28yX3JenXbrZytopQ7PUWywRBTswyGjQiPUc3ZjFNr6TXW5FY_uz&pixel_id=317228589183302" class="flex gap-3 items-start flex-1">
+    <div class="w-20 h-20 rounded overflow-hidden bg-slate-100 shrink-0">
+      <img src="images/austin.webp" alt="Bicicleta elétrica Classic PAM" class="w-full h-full object-cover">
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[13px] font-medium text-slate-900 leading-snug line-clamp-2">Bicicleta Elétrica Austin 1000w</h3>
+      <div class="mt-1 flex items-center gap-1 text-[10px] leading-none">
+        <span class="px-1.5 py-[2px] rounded bg-[#ff4d4f] text-white font-bold">11.11</span>
+        <span class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-[#fff0f1] text-[#ff4d4f] font-semibold"><img src="images/ticket.webp" alt="ticket" class="w-3.5 h-3.5"> 93% OFF</span>
+        <span class="px-1.5 py-[2px] rounded bg-emerald-50 text-emerald-600 font-medium">Frete grátis</span>
+      </div>
+      <div class="mt-1 text-[11px] text-slate-500"><span class="text-amber-500">★ 4.8</span> • 675 vendido(s)</div>
+      <div class="mt-1 flex items-baseline gap-2">
+        <div class="text-[18px] font-bold text-[#ee4c2c]">R$ 87,73</div>
+        <div class="text-[11px] text-slate-400 line-through">R$ 1.137,90</div>
+      </div>
+    </div>
+  </a>
+  <div class="flex flex-col items-center gap-2 shrink-0"><span style="display:inline-block;padding:4px 12px;border-radius:9999px;background:#e5e7eb;color:#6b7280;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Esgotado</span></div>
+</article>
+
+            <!-- 1 - Conjunto de Panelas LIFE SMILE 29 Peças -->
+<article class="py-3 flex gap-3 items-start opacity-50" style="pointer-events: none;">
+  <a href="/loja/produtos/panela/?CampaignID=831670066&adSETID=835432269&CreativeID=835432271&click_id=7xqveW-sxONK4or95WCKzsKyAnzD5iBR03pGp2B8kioGJ0NAC0wBedGevMpLw241BIVR3RogbH0J28yX3JenXbrZytopQ7PUWywRBTswyGjQiPUc3ZjFNr6TXW5FY_uz&pixel_id=317228589183302" class="flex gap-3 items-start flex-1">
+    <div class="w-20 h-20 rounded overflow-hidden bg-slate-100 shrink-0">
+      <img src="images/panela.webp" alt="Conjunto de Panelas LIFE SMILE 29 Peças Granito Antiaderente" class="w-full h-full object-cover">
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[13px] font-medium text-slate-900 leading-snug line-clamp-2">Conjunto de Panelas LIFE SMILE 29 Peças Granito Antiaderente</h3>
+      <div class="mt-1 flex items-center gap-1 text-[10px] leading-none">
+        <span class="px-1.5 py-[2px] rounded bg-[#ff4d4f] text-white font-bold">11.11</span>
+        <span class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-[#fff0f1] text-[#ff4d4f] font-semibold"><img src="images/ticket.webp" alt="ticket" class="w-3.5 h-3.5"> 92% OFF</span>
+        <span class="px-1.5 py-[2px] rounded bg-emerald-50 text-emerald-600 font-medium">Frete grátis</span>
+      </div>
+      <div class="mt-1 text-[11px] text-slate-500"><span class="text-amber-500">★ 4.8</span> • 3250 vendido(s)</div>
+      <div class="mt-1 flex items-baseline gap-2">
+        <div class="text-[18px] font-bold text-[#ee4c2c]">R$ 48,90</div>
+        <div class="text-[11px] text-slate-400 line-through">R$ 1.099,99</div>
+      </div>
+    </div>
+  </a>
+  <div class="flex flex-col items-center gap-2 shrink-0"><span style="display:inline-block;padding:4px 12px;border-radius:9999px;background:#e5e7eb;color:#6b7280;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Esgotado</span></div>
+</article>
+
+
+            <!-- 1 - Kit Combinado de 7 Ferramentas DEWALT -->
+<article class="py-3 flex gap-3 items-start opacity-50" style="pointer-events: none;">
+  <a href="/loja/produtos/ferra/?CampaignID=831670066&adSETID=835432269&CreativeID=835432271&click_id=7xqveW-sxONK4or95WCKzsKyAnzD5iBR03pGp2B8kioGJ0NAC0wBedGevMpLw241BIVR3RogbH0J28yX3JenXbrZytopQ7PUWywRBTswyGjQiPUc3ZjFNr6TXW5FY_uz&pixel_id=317228589183302" class="flex gap-3 items-start flex-1">
+    <div class="w-20 h-20 rounded overflow-hidden bg-slate-100 shrink-0">
+      <img src="images/Va9Qgkow55DM.webp" alt="Conjunto de Panelas LIFE SMILE 29 Peças Granito Antiaderente" class="w-full h-full object-cover">
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[13px] font-medium text-slate-900 leading-snug line-clamp-2">Kit Combinado de 7 Ferramentas DEWALT</h3>
+      <div class="mt-1 flex items-center gap-1 text-[10px] leading-none">
+        <span class="px-1.5 py-[2px] rounded bg-[#ff4d4f] text-white font-bold">11.11</span>
+        <span class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-[#fff0f1] text-[#ff4d4f] font-semibold"><img src="images/ticket.webp" alt="ticket" class="w-3.5 h-3.5"> 92% OFF</span>
+        <span class="px-1.5 py-[2px] rounded bg-emerald-50 text-emerald-600 font-medium">Frete grátis</span>
+      </div>
+      <div class="mt-1 text-[11px] text-slate-500"><span class="text-amber-500">★ 4.8</span> • 3251 vendido(s)</div>
+      <div class="mt-1 flex items-baseline gap-2">
+        <div class="text-[18px] font-bold text-[#ee4c2c]">R$ 59,23</div>
+        <div class="text-[11px] text-slate-400 line-through">R$ 1.499,99</div>
+      </div>
+    </div>
+  </a>
+  <div class="flex flex-col items-center gap-2 shrink-0"><span style="display:inline-block;padding:4px 12px;border-radius:9999px;background:#e5e7eb;color:#6b7280;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Esgotado</span></div>
+</article>
+
+
+            <!-- 1 - Escorredor -->
+<article class="py-3 flex gap-3 items-start opacity-50" style="pointer-events: none;">
+  <a href="/loja/produtos/escorredor/?CampaignID=831670066&adSETID=835432269&CreativeID=835432271&click_id=7xqveW-sxONK4or95WCKzsKyAnzD5iBR03pGp2B8kioGJ0NAC0wBedGevMpLw241BIVR3RogbH0J28yX3JenXbrZytopQ7PUWywRBTswyGjQiPUc3ZjFNr6TXW5FY_uz&pixel_id=317228589183302" class="flex gap-3 items-start flex-1">
+    <div class="w-20 h-20 rounded overflow-hidden bg-slate-100 shrink-0">
+      <img src="images/escorredor.webp" alt="Conjunto de Panelas LIFE SMILE 29 Peças Granito Antiaderente" class="w-full h-full object-cover">
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[13px] font-medium text-slate-900 leading-snug line-clamp-2">Escorredor Pro Five – Prato e Louça Suspenso para Armário</h3>
+      <div class="mt-1 flex items-center gap-1 text-[10px] leading-none">
+        <span class="px-1.5 py-[2px] rounded bg-[#ff4d4f] text-white font-bold">11.11</span>
+        <span class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-[#fff0f1] text-[#ff4d4f] font-semibold"><img src="images/ticket.webp" alt="ticket" class="w-3.5 h-3.5"> 92% OFF</span>
+        <span class="px-1.5 py-[2px] rounded bg-emerald-50 text-emerald-600 font-medium">Frete grátis</span>
+      </div>
+      <div class="mt-1 text-[11px] text-slate-500"><span class="text-amber-500">★ 4.8</span> • 3251 vendido(s)</div>
+      <div class="mt-1 flex items-baseline gap-2">
+        <div class="text-[18px] font-bold text-[#ee4c2c]">R$ 37,90</div>
+        <div class="text-[11px] text-slate-400 line-through">R$ 327,43</div>
+      </div>
+    </div>
+  </a>
+  <div class="flex flex-col items-center gap-2 shrink-0"><span style="display:inline-block;padding:4px 12px;border-radius:9999px;background:#e5e7eb;color:#6b7280;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Esgotado</span></div>
+</article>
+
+
+
+<!-- 3 - 262 Canetinhas Touch -->
+<article class="py-3 flex gap-3 items-start opacity-50" style="pointer-events: none;">
+  <a href="/loja/produtos/canetas/?CampaignID=831670066&adSETID=835432269&CreativeID=835432271&click_id=7xqveW-sxONK4or95WCKzsKyAnzD5iBR03pGp2B8kioGJ0NAC0wBedGevMpLw241BIVR3RogbH0J28yX3JenXbrZytopQ7PUWywRBTswyGjQiPUc3ZjFNr6TXW5FY_uz&pixel_id=317228589183302" class="flex gap-3 items-start flex-1">
+    <div class="w-20 h-20 rounded overflow-hidden bg-slate-100 shrink-0">
+      <img src="images/canetas.webp" alt="262 Canetinhas Touch" class="w-full h-full object-cover">
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[13px] font-medium text-slate-900 leading-snug line-clamp-2">262 Canetinhas Touch</h3>
+      <div class="mt-1 flex items-center gap-1 text-[10px] leading-none">
+        <span class="px-1.5 py-[2px] rounded bg-[#ff4d4f] text-white font-bold">11.11</span>
+        <span class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-[#fff0f1] text-[#ff4d4f] font-semibold"><img src="images/ticket.webp" alt="ticket" class="w-3.5 h-3.5"> 85% OFF</span>
+        <span class="px-1.5 py-[2px] rounded bg-emerald-50 text-emerald-600 font-medium">Frete grátis</span>
+      </div>
+      <div class="mt-1 text-[11px] text-slate-500"><span class="text-amber-500">★ 4.6</span> • 781 vendido(s)</div>
+      <div class="mt-1 flex items-baseline gap-2">
+        <div class="text-[18px] font-bold text-[#ee4c2c]">R$ 37,99</div>
+        <div class="text-[11px] text-slate-400 line-through">R$ 439,29</div>
+      </div>
+    </div>
+  </a>
+  <div class="flex flex-col items-center gap-2 shrink-0"><span style="display:inline-block;padding:4px 12px;border-radius:9999px;background:#e5e7eb;color:#6b7280;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Esgotado</span></div>
+</article>
+
+<!-- 4 - Tablet Xiaomi Redmi -->
+<article class="py-3 flex gap-3 items-start opacity-50" style="pointer-events: none;">
+  <a href="/loja/produtos/tablet/?CampaignID=831670066&adSETID=835432269&CreativeID=835432271&click_id=7xqveW-sxONK4or95WCKzsKyAnzD5iBR03pGp2B8kioGJ0NAC0wBedGevMpLw241BIVR3RogbH0J28yX3JenXbrZytopQ7PUWywRBTswyGjQiPUc3ZjFNr6TXW5FY_uz&pixel_id=317228589183302" class="flex gap-3 items-start flex-1">
+    <div class="w-20 h-20 rounded overflow-hidden bg-slate-100 shrink-0">
+      <img src="images/tablet.webp" alt="Tablet Xiaomi Redmi" class="w-full h-full object-cover">
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[13px] font-medium text-slate-900 leading-snug line-clamp-2">Tablet Xiaomi Redmi</h3>
+      <div class="mt-1 flex items-center gap-1 text-[10px] leading-none">
+        <span class="px-1.5 py-[2px] rounded bg-[#ff4d4f] text-white font-bold">11.11</span>
+        <span class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-[#fff0f1] text-[#ff4d4f] font-semibold"><img src="images/ticket.webp" alt="ticket" class="w-3.5 h-3.5"> 85% OFF</span>
+        <span class="px-1.5 py-[2px] rounded bg-emerald-50 text-emerald-600 font-medium">Frete grátis</span>
+      </div>
+      <div class="mt-1 text-[11px] text-slate-500"><span class="text-amber-500">★ 4.8</span> • 512 vendido(s)</div>
+      <div class="mt-1 flex items-baseline gap-2">
+        <div class="text-[18px] font-bold text-[#ee4c2c]">R$ 53,99</div>
+        <div class="text-[11px] text-slate-400 line-through">R$ 1.259,99</div>
+      </div>
+    </div>
+  </a>
+  <div class="flex flex-col items-center gap-2 shrink-0"><span style="display:inline-block;padding:4px 12px;border-radius:9999px;background:#e5e7eb;color:#6b7280;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Esgotado</span></div>
+</article>
+
+<!-- Sofá Cama Ambellini - ESGOTADO -->
+<article class="py-3 flex gap-3 items-start opacity-60 opacity-50" style="pointer-events: none;">
+  <div class="flex gap-3 items-start flex-1">
+    <div class="w-20 h-20 rounded overflow-hidden bg-slate-100 shrink-0 relative">
+      <img src="images/qsJdHtItucap.webp" alt="Sofá Cama Ambellini" class="w-full h-full object-cover">
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[13px] font-medium text-slate-900 leading-snug line-clamp-2">Sofá Cama Ambellini</h3>
+      <div class="mt-1 flex items-center gap-1 text-[10px] leading-none">
+        <span class="px-1.5 py-[2px] rounded bg-slate-400 text-white font-bold">ESGOTADO</span>
+      </div>
+      <div class="mt-1 text-[11px] text-slate-500"><span class="text-amber-500">★ 4.6</span> • 892 vendido(s)</div>
+      <div class="mt-1 flex items-baseline gap-2">
+        <div class="text-[18px] font-bold text-slate-400">R$ 74,13</div>
+        <div class="text-[11px] text-slate-400 line-through">R$ 1.899,99</div>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col items-center gap-2 shrink-0"><span style="display:inline-block;padding:4px 12px;border-radius:9999px;background:#e5e7eb;color:#6b7280;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Esgotado</span></div>
+</article>
+
+<!-- 5 - Bicicleta Spinning Ergométrica -->
+<article class="py-3 flex gap-3 items-start opacity-50" style="pointer-events: none;">
+  <a href="/loja/produtos/ergometrica/?CampaignID=831670066&adSETID=835432269&CreativeID=835432271&click_id=7xqveW-sxONK4or95WCKzsKyAnzD5iBR03pGp2B8kioGJ0NAC0wBedGevMpLw241BIVR3RogbH0J28yX3JenXbrZytopQ7PUWywRBTswyGjQiPUc3ZjFNr6TXW5FY_uz&pixel_id=317228589183302" class="flex gap-3 items-start flex-1">
+    <div class="w-20 h-20 rounded overflow-hidden bg-slate-100 shrink-0">
+      <img src="images/ergometrica.webp" alt="Bicicleta Spinning Ergométrica" class="w-full h-full object-cover">
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[13px] font-medium text-slate-900 leading-snug line-clamp-2">Bicicleta Spinning Ergométrica</h3>
+      <div class="mt-1 flex items-center gap-1 text-[10px] leading-none">
+        <span class="px-1.5 py-[2px] rounded bg-[#ff4d4f] text-white font-bold">11.11</span>
+        <span class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-[#fff0f1] text-[#ff4d4f] font-semibold"><img src="images/ticket.webp" alt="ticket" class="w-3.5 h-3.5"> 85% OFF</span>
+        <span class="px-1.5 py-[2px] rounded bg-emerald-50 text-emerald-600 font-medium">Frete grátis</span>
+      </div>
+      <div class="mt-1 text-[11px] text-slate-500"><span class="text-amber-500">★ 4.5</span> • 932 vendido(s)</div>
+      <div class="mt-1 flex items-baseline gap-2">
+        <div class="text-[18px] font-bold text-[#ee4c2c]">R$ 39,99</div>
+        <div class="text-[11px] text-slate-400 line-through">R$ 1.109,00</div>
+      </div>
+    </div>
+  </a>
+  <div class="flex flex-col items-center gap-2 shrink-0"><span style="display:inline-block;padding:4px 12px;border-radius:9999px;background:#e5e7eb;color:#6b7280;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Esgotado</span></div>
+</article>
+
+<!-- 6 - JBL Boombox 3 -->
+<article class="py-3 flex gap-3 items-start opacity-50" style="pointer-events: none;">
+  <a href="/loja/produtos/jbl/?CampaignID=831670066&adSETID=835432269&CreativeID=835432271&click_id=7xqveW-sxONK4or95WCKzsKyAnzD5iBR03pGp2B8kioGJ0NAC0wBedGevMpLw241BIVR3RogbH0J28yX3JenXbrZytopQ7PUWywRBTswyGjQiPUc3ZjFNr6TXW5FY_uz&pixel_id=317228589183302" class="flex gap-3 items-start flex-1">
+    <div class="w-20 h-20 rounded overflow-hidden bg-slate-100 shrink-0">
+      <img src="images/jbl.webp" alt="JBL Boombox 3" class="w-full h-full object-cover">
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[13px] font-medium text-slate-900 leading-snug line-clamp-2">JBL Caixa de Som Boombox 3</h3>
+      <div class="mt-1 flex items-center gap-1 text-[10px] leading-none">
+        <span class="px-1.5 py-[2px] rounded bg-[#ff4d4f] text-white font-bold">11.11</span>
+        <span class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-[#fff0f1] text-[#ff4d4f] font-semibold"><img src="images/ticket.webp" alt="ticket" class="w-3.5 h-3.5"> 85% OFF</span>
+        <span class="px-1.5 py-[2px] rounded bg-emerald-50 text-emerald-600 font-medium">Frete grátis</span>
+      </div>
+      <div class="mt-1 text-[11px] text-slate-500"><span class="text-amber-500">★ 4.9</span> • 1457 vendido(s)</div>
+      <!-- (preços pendentes no seu markup original) -->
+        <div class="mt-1 flex items-baseline gap-2">
+        <div class="text-[18px] font-bold text-[#ee4c2c]">R$ 42,90</div>
+        <div class="text-[11px] text-slate-400 line-through">R$ 1.899,90</div>
+      </div>
+    </div>
+  </a>
+  <div class="flex flex-col items-center gap-2 shrink-0"><span style="display:inline-block;padding:4px 12px;border-radius:9999px;background:#e5e7eb;color:#6b7280;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Esgotado</span></div>
+</article>
+
+<!-- 7 - Garrafa Térmica Stanley -->
+<article class="py-3 flex gap-3 items-start opacity-50" style="pointer-events: none;">
+  <a href="/loja/produtos/garrafa/?CampaignID=831670066&adSETID=835432269&CreativeID=835432271&click_id=7xqveW-sxONK4or95WCKzsKyAnzD5iBR03pGp2B8kioGJ0NAC0wBedGevMpLw241BIVR3RogbH0J28yX3JenXbrZytopQ7PUWywRBTswyGjQiPUc3ZjFNr6TXW5FY_uz&pixel_id=317228589183302" class="flex gap-3 items-start flex-1">
+    <div class="w-20 h-20 rounded overflow-hidden bg-slate-100 shrink-0">
+      <img src="images/garrafa.webp" alt="Garrafa Térmica Stanley" class="w-full h-full object-cover">
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[13px] font-medium text-slate-900 leading-snug line-clamp-2">Garrafa Térmica Stanley</h3>
+      <div class="mt-1 flex items-center gap-1 text-[10px] leading-none">
+        <span class="px-1.5 py-[2px] rounded bg-[#ff4d4f] text-white font-bold">11.11</span>
+        <span class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-[#fff0f1] text-[#ff4d4f] font-semibold"><img src="images/ticket.webp" alt="ticket" class="w-3.5 h-3.5"> 95% OFF</span>
+        <span class="px-1.5 py-[2px] rounded bg-emerald-50 text-emerald-600 font-medium">Frete grátis</span>
+      </div>
+      <div class="mt-1 text-[11px] text-slate-500"><span class="text-amber-500">★ 4.7</span> • 2210 vendido(s)</div>
+      <div class="mt-1 flex items-baseline gap-2">
+        <div class="text-[18px] font-bold text-[#ee4c2c]">R$ 31,99</div>
+        <div class="text-[11px] text-slate-400 line-through">R$ 309,44</div>
+      </div>
+    </div>
+  </a>
+  <div class="flex flex-col items-center gap-2 shrink-0"><span style="display:inline-block;padding:4px 12px;border-radius:9999px;background:#e5e7eb;color:#6b7280;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Esgotado</span></div>
+</article>
+
+<!-- 8 - Robô Aspirador Electrolux -->
+<article class="py-3 flex gap-3 items-start opacity-50" style="pointer-events: none;">
+  <a href="/loja/produtos/robo/?CampaignID=831670066&adSETID=835432269&CreativeID=835432271&click_id=7xqveW-sxONK4or95WCKzsKyAnzD5iBR03pGp2B8kioGJ0NAC0wBedGevMpLw241BIVR3RogbH0J28yX3JenXbrZytopQ7PUWywRBTswyGjQiPUc3ZjFNr6TXW5FY_uz&pixel_id=317228589183302" class="flex gap-3 items-start flex-1">
+    <div class="w-20 h-20 rounded overflow-hidden bg-slate-100 shrink-0">
+      <img src="images/robo.webp" alt="Robô Aspirador Electrolux" class="w-full h-full object-cover">
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[13px] font-medium text-slate-900 leading-snug line-clamp-2">Robô Aspirador de Pó Electrolux</h3>
+      <div class="mt-1 flex items-center gap-1 text-[10px] leading-none">
+        <span class="px-1.5 py-[2px] rounded bg-[#ff4d4f] text-white font-bold">11.11</span>
+        <span class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-[#fff0f1] text-[#ff4d4f] font-semibold"><img src="images/ticket.webp" alt="ticket" class="w-3.5 h-3.5"> 95% OFF</span>
+        <span class="px-1.5 py-[2px] rounded bg-emerald-50 text-emerald-600 font-medium">Frete grátis</span>
+      </div>
+      <div class="mt-1 text-[11px] text-slate-500"><span class="text-amber-500">★ 4.6</span> • 1180 vendido(s)</div>
+      <div class="mt-1 flex items-baseline gap-2">
+        <div class="text-[18px] font-bold text-[#ee4c2c]">R$ 48,99</div>
+        <div class="text-[11px] text-slate-400 line-through">R$ 1.299,56</div>
+      </div>
+    </div>
+  </a>
+  <div class="flex flex-col items-center gap-2 shrink-0"><span style="display:inline-block;padding:4px 12px;border-radius:9999px;background:#e5e7eb;color:#6b7280;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Esgotado</span></div>
+</article>
+
+<!-- 9 - Inova Casa – Jogo de Soquetes 61 peças -->
+<article class="py-3 flex gap-3 items-start opacity-50" style="pointer-events: none;">
+  <a href="/loja/produtos/maleta/?CampaignID=831670066&adSETID=835432269&CreativeID=835432271&click_id=7xqveW-sxONK4or95WCKzsKyAnzD5iBR03pGp2B8kioGJ0NAC0wBedGevMpLw241BIVR3RogbH0J28yX3JenXbrZytopQ7PUWywRBTswyGjQiPUc3ZjFNr6TXW5FY_uz&pixel_id=317228589183302" class="flex gap-3 items-start flex-1">
+    <div class="w-20 h-20 rounded overflow-hidden bg-slate-100 shrink-0">
+      <img src="images/maleta.webp" alt="Jogo de Soquetes 61 peças" class="w-full h-full object-cover">
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[13px] font-medium text-slate-900 leading-snug line-clamp-2">Inova Casa Jogo de Soquetes 61 peças</h3>
+      <div class="mt-1 flex items-center gap-1 text-[10px] leading-none">
+        <span class="px-1.5 py-[2px] rounded bg-[#ff4d4f] text-white font-bold">11.11</span>
+        <span class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-[#fff0f1] text-[#ff4d4f] font-semibold"><img src="images/ticket.webp" alt="ticket" class="w-3.5 h-3.5"> 95% OFF</span>
+        <span class="px-1.5 py-[2px] rounded bg-emerald-50 text-emerald-600 font-medium">Frete grátis</span>
+      </div>
+      <div class="mt-1 text-[11px] text-slate-500"><span class="text-amber-500">★ 4.4</span> • 905 vendido(s)</div>
+      <div class="mt-1 flex items-baseline gap-2">
+        <div class="text-[18px] font-bold text-[#ee4c2c]">R$ 34,99</div>
+        <div class="text-[11px] text-slate-400 line-through">R$ 579,90</div>
+      </div>
+    </div>
+  </a>
+  <div class="flex flex-col items-center gap-2 shrink-0"><span style="display:inline-block;padding:4px 12px;border-radius:9999px;background:#e5e7eb;color:#6b7280;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Esgotado</span></div>
+</article>
+
+<!-- 10 - Apple AirPods Max -->
+<article class="py-3 flex gap-3 items-start opacity-50" style="pointer-events: none;">
+  <a href="/loja/produtos/airpods/?CampaignID=831670066&adSETID=835432269&CreativeID=835432271&click_id=7xqveW-sxONK4or95WCKzsKyAnzD5iBR03pGp2B8kioGJ0NAC0wBedGevMpLw241BIVR3RogbH0J28yX3JenXbrZytopQ7PUWywRBTswyGjQiPUc3ZjFNr6TXW5FY_uz&pixel_id=317228589183302" class="flex gap-3 items-start flex-1">
+    <div class="w-20 h-20 rounded overflow-hidden bg-slate-100 shrink-0">
+      <img src="images/airpods.webp" alt="Apple AirPods Max" class="w-full h-full object-cover">
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[13px] font-medium text-slate-900 leading-snug line-clamp-2">Apple AirPods Max</h3>
+      <div class="mt-1 flex items-center gap-1 text-[10px] leading-none">
+        <span class="px-1.5 py-[2px] rounded bg-[#ff4d4f] text-white font-bold">11.11</span>
+        <span class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-[#fff0f1] text-[#ff4d4f] font-semibold"><img src="images/ticket.webp" alt="ticket" class="w-3.5 h-3.5"> 95% OFF</span>
+        <span class="px-1.5 py-[2px] rounded bg-emerald-50 text-emerald-600 font-medium">Frete grátis</span>
+      </div>
+      <div class="mt-1 text-[11px] text-slate-500"><span class="text-amber-500">★ 4.9</span> • 624 vendido(s)</div>
+      <div class="mt-1 flex items-baseline gap-2">
+        <div class="text-[18px] font-bold text-[#ee4c2c]">R$ 56,99</div>
+        <div class="text-[11px] text-slate-400 line-through">R$ 1768,90</div>
+      </div>
+    </div>
+  </a>
+  <div class="flex flex-col items-center gap-2 shrink-0"><span style="display:inline-block;padding:4px 12px;border-radius:9999px;background:#e5e7eb;color:#6b7280;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Esgotado</span></div>
+</article>
+
+<!-- 10 - Air fri -->
+<article class="py-3 flex gap-3 items-start opacity-50" style="pointer-events: none;">
+  <a href="/loja/produtos/airfri/?CampaignID=831670066&adSETID=835432269&CreativeID=835432271&click_id=7xqveW-sxONK4or95WCKzsKyAnzD5iBR03pGp2B8kioGJ0NAC0wBedGevMpLw241BIVR3RogbH0J28yX3JenXbrZytopQ7PUWywRBTswyGjQiPUc3ZjFNr6TXW5FY_uz&pixel_id=317228589183302" class="flex gap-3 items-start flex-1">
+    <div class="w-20 h-20 rounded overflow-hidden bg-slate-100 shrink-0">
+      <img src="images/frita.webp" alt="Apple AirPods Max" class="w-full h-full object-cover">
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[13px] font-medium text-slate-900 leading-snug line-clamp-2">Fritadeira Air Fryer Oven Mondial 2 em 1</h3>
+      <div class="mt-1 flex items-center gap-1 text-[10px] leading-none">
+        <span class="px-1.5 py-[2px] rounded bg-[#ff4d4f] text-white font-bold">11.11</span>
+        <span class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-[#fff0f1] text-[#ff4d4f] font-semibold"><img src="images/ticket.webp" alt="ticket" class="w-3.5 h-3.5"> 95% OFF</span>
+        <span class="px-1.5 py-[2px] rounded bg-emerald-50 text-emerald-600 font-medium">Frete grátis</span>
+      </div>
+      <div class="mt-1 text-[11px] text-slate-500"><span class="text-amber-500">★ 4.9</span> • 624 vendido(s)</div>
+      <div class="mt-1 flex items-baseline gap-2">
+        <div class="text-[18px] font-bold text-[#ee4c2c]">R$ 45,90</div>
+        <div class="text-[11px] text-slate-400 line-through">R$ 529,99</div>
+      </div>
+    </div>
+  </a>
+  <div class="flex flex-col items-center gap-2 shrink-0"><span style="display:inline-block;padding:4px 12px;border-radius:9999px;background:#e5e7eb;color:#6b7280;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Esgotado</span></div>
+</article>
+
+<!-- 11 - Patinete Elétrico Scooter -->
+<article class="py-3 flex gap-3 items-start opacity-50" style="pointer-events: none;">
+  <a href="/loja/produtos/patinete/?CampaignID=831670066&adSETID=835432269&CreativeID=835432271&click_id=7xqveW-sxONK4or95WCKzsKyAnzD5iBR03pGp2B8kioGJ0NAC0wBedGevMpLw241BIVR3RogbH0J28yX3JenXbrZytopQ7PUWywRBTswyGjQiPUc3ZjFNr6TXW5FY_uz&pixel_id=317228589183302" class="flex gap-3 items-start flex-1">
+    <div class="w-20 h-20 rounded overflow-hidden bg-slate-100 shrink-0">
+      <img src="images/patinete.webp" alt="Patinete elétrico Scooter" class="w-full h-full object-cover">
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[13px] font-medium text-slate-900 leading-snug line-clamp-2">Patinete Elétrico Scooter</h3>
+      <div class="mt-1 flex items-center gap-1 text-[10px] leading-none">
+        <span class="px-1.5 py-[2px] rounded bg-[#ff4d4f] text-white font-bold">11.11</span>
+        <span class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-[#fff0f1] text-[#ff4d4f] font-semibold"><img src="images/ticket.webp" alt="ticket" class="w-3.5 h-3.5"> 95% OFF</span>
+        <span class="px-1.5 py-[2px] rounded bg-emerald-50 text-emerald-600 font-medium">Frete grátis</span>
+      </div>
+      <div class="mt-1 text-[11px] text-slate-500"><span class="text-amber-500">★ 4.7</span> • 1331 vendido(s)</div>
+      <div class="mt-1 flex items-baseline gap-2">
+        <div class="text-[18px] font-bold text-[#ee4c2c]">R$ 41,90</div>
+        <div class="text-[11px] text-slate-400 line-through">R$ 639,29</div>
+      </div>
+    </div>
+  </a>
+  <div class="flex flex-col items-center gap-2 shrink-0"><span style="display:inline-block;padding:4px 12px;border-radius:9999px;background:#e5e7eb;color:#6b7280;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Esgotado</span></div>
+</article>
+
+<!-- 11 - Ninebot Go Kart Pro: Go Kart Elétrico Ajustável para Crianças e Adultos -->
+<article class="py-3 flex gap-3 items-start opacity-50" style="pointer-events: none;">
+  <a href="/loja/produtos/kart/?CampaignID=831670066&adSETID=835432269&CreativeID=835432271&click_id=7xqveW-sxONK4or95WCKzsKyAnzD5iBR03pGp2B8kioGJ0NAC0wBedGevMpLw241BIVR3RogbH0J28yX3JenXbrZytopQ7PUWywRBTswyGjQiPUc3ZjFNr6TXW5FY_uz&pixel_id=317228589183302" class="flex gap-3 items-start flex-1">
+    <div class="w-20 h-20 rounded overflow-hidden bg-slate-100 shrink-0">
+      <img src="images/61mP1iOc6rL._AC_SL1500_.jpg" alt="Patinete elétrico Scooter" class="w-full h-full object-cover">
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[13px] font-medium text-slate-900 leading-snug line-clamp-2">Ninebot Go Kart Pro: Go Kart Elétrico</h3>
+      <div class="mt-1 flex items-center gap-1 text-[10px] leading-none">
+        <span class="px-1.5 py-[2px] rounded bg-[#ff4d4f] text-white font-bold">11.11</span>
+        <span class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-[#fff0f1] text-[#ff4d4f] font-semibold"><img src="images/ticket.webp" alt="ticket" class="w-3.5 h-3.5"> 95% OFF</span>
+        <span class="px-1.5 py-[2px] rounded bg-emerald-50 text-emerald-600 font-medium">Frete grátis</span>
+      </div>
+      <div class="mt-1 text-[11px] text-slate-500"><span class="text-amber-500">★ 4.7</span> • 1331 vendido(s)</div>
+      <div class="mt-1 flex items-baseline gap-2">
+        <div class="text-[18px] font-bold text-[#ee4c2c]">R$ 97,90</div>
+        <div class="text-[11px] text-slate-400 line-through">R$ 3639,29</div>
+      </div>
+    </div>
+  </a>
+  <div class="flex flex-col items-center gap-2 shrink-0"><span style="display:inline-block;padding:4px 12px;border-radius:9999px;background:#e5e7eb;color:#6b7280;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Esgotado</span></div>
+</article>
+
+<!-- 12 - Echo Dot Alexa 5ª geração -->
+<article class="py-3 flex gap-3 items-start opacity-50" style="pointer-events: none;">
+  <a href="/loja/produtos/alexa/?CampaignID=831670066&adSETID=835432269&CreativeID=835432271&click_id=7xqveW-sxONK4or95WCKzsKyAnzD5iBR03pGp2B8kioGJ0NAC0wBedGevMpLw241BIVR3RogbH0J28yX3JenXbrZytopQ7PUWywRBTswyGjQiPUc3ZjFNr6TXW5FY_uz&pixel_id=317228589183302" class="flex gap-3 items-start flex-1">
+    <div class="w-20 h-20 rounded overflow-hidden bg-slate-100 shrink-0">
+      <img src="images/alexa.webp" alt="Echo Dot Alexa 5ª geração" class="w-full h-full object-cover">
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[13px] font-medium text-slate-900 leading-snug line-clamp-2">Echo Dot Alexa (5ª geração)</h3>
+      <div class="mt-1 flex items-center gap-1 text-[10px] leading-none">
+        <span class="px-1.5 py-[2px] rounded bg-[#ff4d4f] text-white font-bold">11.11</span>
+        <span class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-[#fff0f1] text-[#ff4d4f] font-semibold"><img src="images/ticket.webp" alt="ticket" class="w-3.5 h-3.5"> 95% OFF</span>
+        <span class="px-1.5 py-[2px] rounded bg-emerald-50 text-emerald-600 font-medium">Frete grátis</span>
+      </div>
+      <div class="mt-1 text-[11px] text-slate-500"><span class="text-amber-500">★ 4.8</span> • 2689 vendido(s)</div>
+      <div class="mt-1 flex items-baseline gap-2">
+        <div class="text-[18px] font-bold text-[#ee4c2c]">R$ 38,72</div>
+        <div class="text-[11px] text-slate-400 line-through">R$ 379,98</div>
+      </div>
+    </div>
+  </a>
+  <div class="flex flex-col items-center gap-2 shrink-0"><span style="display:inline-block;padding:4px 12px;border-radius:9999px;background:#e5e7eb;color:#6b7280;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Esgotado</span></div>
+</article>
+
+
+<!-- 14 - Ar Condicionado Split Hi Wall -->
+<article class="py-3 flex gap-3 items-start opacity-50" style="pointer-events: none;">
+  <a href="/loja/produtos/ar/?CampaignID=831670066&adSETID=835432269&CreativeID=835432271&click_id=7xqveW-sxONK4or95WCKzsKyAnzD5iBR03pGp2B8kioGJ0NAC0wBedGevMpLw241BIVR3RogbH0J28yX3JenXbrZytopQ7PUWywRBTswyGjQiPUc3ZjFNr6TXW5FY_uz&pixel_id=317228589183302" class="flex gap-3 items-start flex-1">
+    <div class="w-20 h-20 rounded overflow-hidden bg-slate-100 shrink-0">
+      <img src="images/ar.webp" alt="Ar condicionado Split Hi Wall" class="w-full h-full object-cover">
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[13px] font-medium text-slate-900 leading-snug line-clamp-2">Ar Condicionado Split Hi Wall</h3>
+      <div class="mt-1 flex items-center gap-1 text-[10px] leading-none">
+        <span class="px-1.5 py-[2px] rounded bg-[#ff4d4f] text-white font-bold">11.11</span>
+        <span class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-[#fff0f1] text-[#ff4d4f] font-semibold"><img src="images/ticket.webp" alt="ticket" class="w-3.5 h-3.5"> 95% OFF</span>
+        <span class="px-1.5 py-[2px] rounded bg-emerald-50 text-emerald-600 font-medium">Frete grátis</span>
+      </div>
+      <div class="mt-1 text-[11px] text-slate-500"><span class="text-amber-500">★ 4.6</span> • 744 vendido(s)</div>
+      <div class="mt-1 flex items-baseline gap-2">
+        <div class="text-[18px] font-bold text-[#ee4c2c]">R$ 53,12</div>
+        <div class="text-[11px] text-slate-400 line-through">R$ 1.499,90</div>
+      </div>
+    </div>
+  </a>
+  <div class="flex flex-col items-center gap-2 shrink-0"><span style="display:inline-block;padding:4px 12px;border-radius:9999px;background:#e5e7eb;color:#6b7280;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Esgotado</span></div>
+</article>
+
+<!-- 14 - Fogão -->
+<article class="py-3 flex gap-3 items-start opacity-50" style="pointer-events: none;">
+  <a href="/loja/produtos/fogao/?CampaignID=831670066&adSETID=835432269&CreativeID=835432271&click_id=7xqveW-sxONK4or95WCKzsKyAnzD5iBR03pGp2B8kioGJ0NAC0wBedGevMpLw241BIVR3RogbH0J28yX3JenXbrZytopQ7PUWywRBTswyGjQiPUc3ZjFNr6TXW5FY_uz&pixel_id=317228589183302" class="flex gap-3 items-start flex-1">
+    <div class="w-20 h-20 rounded overflow-hidden bg-slate-100 shrink-0">
+      <img src="images/D_NQ_NP_2X_758697-MLA99987326047_112025-F.webp" alt="Ar condicionado Split Hi Wall" class="w-full h-full object-cover">
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[13px] font-medium text-slate-900 leading-snug line-clamp-2">Fogão 5 Bocas Dako Supreme Black Glass Digital Bivolt Cor Preto</h3>
+      <div class="mt-1 flex items-center gap-1 text-[10px] leading-none">
+        <span class="px-1.5 py-[2px] rounded bg-[#ff4d4f] text-white font-bold">11.11</span>
+        <span class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-[#fff0f1] text-[#ff4d4f] font-semibold"><img src="images/ticket.webp" alt="ticket" class="w-3.5 h-3.5"> 95% OFF</span>
+        <span class="px-1.5 py-[2px] rounded bg-emerald-50 text-emerald-600 font-medium">Frete grátis</span>
+      </div>
+      <div class="mt-1 text-[11px] text-slate-500"><span class="text-amber-500">★ 4.6</span> • 744 vendido(s)</div>
+      <div class="mt-1 flex items-baseline gap-2">
+        <div class="text-[18px] font-bold text-[#ee4c2c]">R$ 67,13</div>
+        <div class="text-[11px] text-slate-400 line-through">R$ 2.999,90</div>
+      </div>
+    </div>
+  </a>
+  <div class="flex flex-col items-center gap-2 shrink-0"><span style="display:inline-block;padding:4px 12px;border-radius:9999px;background:#e5e7eb;color:#6b7280;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Esgotado</span></div>
+</article>
+
+<!-- 15 - Kit 3 Mounjaro HD — Emagrecimento -->
+<article class="py-3 flex gap-3 items-start opacity-50" style="pointer-events: none;">
+  <a href="/loja/produtos/monjaro/?CampaignID=831670066&adSETID=835432269&CreativeID=835432271&click_id=7xqveW-sxONK4or95WCKzsKyAnzD5iBR03pGp2B8kioGJ0NAC0wBedGevMpLw241BIVR3RogbH0J28yX3JenXbrZytopQ7PUWywRBTswyGjQiPUc3ZjFNr6TXW5FY_uz&pixel_id=317228589183302" class="flex gap-3 items-start flex-1">
+    <div class="w-20 h-20 rounded overflow-hidden bg-slate-100 shrink-0">
+      <img src="images/monjaro.webp" alt="Kit 3 Mounjaro HD — Emagrecimento" class="w-full h-full object-cover">
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[13px] font-medium text-slate-900 leading-snug line-clamp-2">Kit 3 Canetas Emagrecedoras Mounjaro - Emagrecimento</h3>
+      <div class="mt-1 flex items-center gap-1 text-[10px] leading-none">
+        <span class="px-1.5 py-[2px] rounded bg-[#ff4d4f] text-white font-bold">11.11</span>
+        <span class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-[#fff0f1] text-[#ff4d4f] font-semibold"><img src="images/ticket.webp" alt="ticket" class="w-3.5 h-3.5"> 95% OFF</span>
+        <span class="px-1.5 py-[2px] rounded bg-emerald-50 text-emerald-600 font-medium">Frete grátis</span>
+      </div>
+      <div class="mt-1 text-[11px] text-slate-500"><span class="text-amber-500">★ 4.3</span> • 290 vendido(s)</div>
+      <div class="mt-1 flex items-baseline gap-2">
+        <div class="text-[18px] font-bold text-[#ee4c2c]">R$ 59,65</div>
+        <div class="text-[11px] text-slate-400 line-through">R$ 497,78</div>
+      </div>
+    </div>
+  </a>
+  <div class="flex flex-col items-center gap-2 shrink-0"><span style="display:inline-block;padding:4px 12px;border-radius:9999px;background:#e5e7eb;color:#6b7280;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Esgotado</span></div>
+</article>
+
+<!-- 15 - Camisa— Emagrecimento -->
+<article class="py-3 flex gap-3 items-start opacity-50" style="pointer-events: none;">
+  <a href="/loja/produtos/cms/?CampaignID=831670066&adSETID=835432269&CreativeID=835432271&click_id=7xqveW-sxONK4or95WCKzsKyAnzD5iBR03pGp2B8kioGJ0NAC0wBedGevMpLw241BIVR3RogbH0J28yX3JenXbrZytopQ7PUWywRBTswyGjQiPUc3ZjFNr6TXW5FY_uz&pixel_id=317228589183302" class="flex gap-3 items-start flex-1">
+    <div class="w-20 h-20 rounded overflow-hidden bg-slate-100 shrink-0">
+      <img src="images/shopping.webp" alt="Kit 3 Mounjaro HD — Emagrecimento" class="w-full h-full object-cover">
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[13px] font-medium text-slate-900 leading-snug line-clamp-2">Camisa Nike Brasil I Oficial Copa Do Mundo 2026</h3>
+      <div class="mt-1 flex items-center gap-1 text-[10px] leading-none">
+        <span class="px-1.5 py-[2px] rounded bg-[#ff4d4f] text-white font-bold">11.11</span>
+        <span class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-[#fff0f1] text-[#ff4d4f] font-semibold"><img src="images/ticket.webp" alt="ticket" class="w-3.5 h-3.5"> 95% OFF</span>
+        <span class="px-1.5 py-[2px] rounded bg-emerald-50 text-emerald-600 font-medium">Frete grátis</span>
+      </div>
+      <div class="mt-1 text-[11px] text-slate-500"><span class="text-amber-500">★ 4.3</span> • 290 vendido(s)</div>
+      <div class="mt-1 flex items-baseline gap-2">
+        <div class="text-[18px] font-bold text-[#ee4c2c]">R$ 37,92</div>
+        <div class="text-[11px] text-slate-400 line-through">R$ 379,99</div>
+      </div>
+    </div>
+  </a>
+  <div class="flex flex-col items-center gap-2 shrink-0"><span style="display:inline-block;padding:4px 12px;border-radius:9999px;background:#e5e7eb;color:#6b7280;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Esgotado</span></div>
+</article>
+
+
+
+
+          </div>
+          </div>
+        
+      </section>
+    </div></section></main>
+
+    <!-- Elemento ano (mantido invisível para evitar erro quando não houver rodapé visual) -->
+    <span id="year" class="sr-only">2026</span>
+
+  </div>
+
+  <!-- JS utilitário: troca rápida de mídia conforme as etapas -->
+  <script>
+    // Evita erro quando o elemento não existir visualmente
+    const yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+    
+    function applyAspect(selector, desktopRatio, mobileRatio){
+      const els = document.querySelectorAll(selector);
+      const mq = window.matchMedia('(min-width: 768px)');
+      const apply = () => {
+        els.forEach(el => {
+          el.classList.remove(`aspect-[${mobileRatio}]`, `aspect-[${desktopRatio}]`);
+          el.classList.add(mq.matches ? `aspect-[${desktopRatio}]` : `aspect-[${mobileRatio}]`);
+        });
+      };
+      mq.addEventListener('change', apply); apply();
+    }
+    applyAspect('#heroMedia', '16/9', '9/16');
+  </script>
+  <script>
+    // Interações básicas do header
+    const back = document.getElementById('btnBack');
+    back && back.addEventListener('click', () => { if (history.length > 1) history.back(); });
+
+    const shareBtn = document.getElementById('btnShare');
+    shareBtn && shareBtn.addEventListener('click', async () => {
+      try{ if (navigator.share) { await navigator.share({ title: document.title, url: location.href }); }
+        else { await navigator.clipboard.writeText(location.href); shareBtn.classList.add('text-brand-700'); setTimeout(()=>shareBtn.classList.remove('text-brand-700'), 800); }
+      }catch(e){}
+    });
+
+    const cartBtn = document.getElementById('btnCart');
+    cartBtn && cartBtn.addEventListener('click', () => { location.href = 'carrinho.php'; });
+
+    // Atualizar badge do carrinho
+    function updateCartBadge() {
+      const badge = document.getElementById('cartBadge');
+      if (!badge) return;
+      
+      fetch('get_cart_count.php')
+        .then(response => response.json())
+        .then(data => {
+          const count = data.count || 0;
+          if (count > 0) {
+            badge.textContent = count > 99 ? '99+' : count;
+            badge.classList.remove('hidden');
+          } else {
+            badge.classList.add('hidden');
+          }
+        })
+        .catch(error => {
+          console.error('Erro ao buscar quantidade do carrinho:', error);
+        });
+    }
+
+    // Atualizar badge ao carregar a página
+    updateCartBadge();
+
+    // Atualizar badge após adicionar ao carrinho (interceptar submits)
+    document.addEventListener('submit', function(e) {
+      const form = e.target;
+      if (form.action && form.action.includes('adicionar_carrinho.php')) {
+        setTimeout(() => {
+          updateCartBadge();
+        }, 500);
+      }
+    });
+  </script>
+  
+
+
+
+
+    <!-- Modal Chat (estilo Typebot) -->
+    <div id="chatModal" class="fixed inset-0 z-[60] hidden">
+      <div class="absolute inset-0 bg-black/40" data-close="true"></div>
+      <div role="dialog" aria-modal="true" aria-labelledby="chatTitle" class="relative mx-auto mt-[10vh] w-[92%] max-w-md rounded-2xl bg-white shadow-2xl border overflow-hidden">
+        <div class="px-4 py-3 border-b flex items-center justify-between">
+          <div class="font-semibold" id="\" chattitle\""="">Atendimento — <span class="\" font-bold\""="">Laissa</span></div>
+          <button class="p-1.5 rounded hover:bg-slate-100" data-close="true" aria-label="Fechar">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+          </button>
+        </div>
+        <div id="chatStream" class="px-4 py-3 max-h-[60vh] overflow-auto bg-slate-50/60 space-y-2"></div>
+        <div class="px-4 py-3 border-t bg-white">
+          <div class="text-xs text-slate-500">Assistente da loja • responde em instantes</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Elemento ano (mantido invisível para evitar erro quando não houver rodapé visual) -->
+    <span id="year" class="sr-only"></span>
+
+  
+<script>
+  // Captura os parâmetros da URL principal
+  const params = window.location.search || "";
+
+  // 1️⃣ Ajusta todos os links <a> que vão para produtos/
+  document.querySelectorAll('a[href^="produtos/"]').forEach(link => {
+    const href = link.getAttribute("href");
+    link.href = href + params;
+  });
+
+  // 2️⃣ Ajusta todos os botões "Comprar" que usam location.href
+  document.querySelectorAll('button[onclick*="produtos/"]').forEach(btn => {
+    const original = btn.getAttribute("onclick"); // ex: location.href='produtos/kart/'
+    
+    // Extrai o link usando regex
+    const match = original.match(/'([^']+)'/);
+    if (match) {
+      const url = match[1]; // produtos/kart/
+      btn.onclick = () => {
+        window.location.href = url + params;
+      };
+    }
+  });
+</script>
+
+<!-- Marcar produtos 4+ como esgotados -->
+<script>
+(function() {
+  var articles = document.querySelectorAll('#products article');
+  for (var i = 3; i < articles.length; i++) {
+    var art = articles[i];
+    art.classList.add('opacity-50');
+    art.style.pointerEvents = 'none';
+    var actions = art.querySelector('.flex.flex-col.items-center');
+    if (actions) {
+      actions.innerHTML = '<span style="display:inline-block;padding:4px 12px;border-radius:9999px;background:#e5e7eb;color:#6b7280;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Esgotado</span>';
+    }
+  }
+})();
+</script>
+
+<!-- Script Contador Ofertas Relâmpago -->
+<script>
+(function() {
+  // Define o tempo inicial do contador (12 minutos)
+  let totalSeconds = (12 * 60);
+  
+  const hoursEl = document.getElementById('countdown-hours');
+  const minutesEl = document.getElementById('countdown-minutes');
+  const secondsEl = document.getElementById('countdown-seconds');
+  
+  function updateCountdown() {
+    if (totalSeconds <= 0) {
+      totalSeconds = (12 * 60); // Reinicia o contador
+    }
+    
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    
+    if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+    if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
+    if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
+    
+    totalSeconds--;
+  }
+  
+  // Atualiza imediatamente
+  updateCountdown();
+  
+  // Atualiza a cada segundo
+  setInterval(updateCountdown, 1000);
+})();
+</script>
+
+<!-- SFX & Visual Effects -->
+<script>
+(function(){
+  // SFX engine
+  var c;function g(){if(!c)c=new(window.AudioContext||window.webkitAudioContext)();if(c.state==='suspended')c.resume();return c}
+  function t(f,d,tp,v){try{var x=g(),o=x.createOscillator(),ga=x.createGain();o.type=tp||'sine';o.frequency.value=f;ga.gain.setValueAtTime(v||.1,x.currentTime);ga.gain.exponentialRampToValueAtTime(.001,x.currentTime+d);o.connect(ga).connect(x.destination);o.start();o.stop(x.currentTime+d)}catch(e){}}
+
+  // Add pulse class to all "Comprar" buttons
+  document.querySelectorAll('button[onclick*="location.href"]').forEach(function(btn){
+    if(btn.textContent.trim()==='Comprar'){
+      btn.classList.add('comprar-pulse');
+      btn.addEventListener('click',function(){t(1200,.04,'sine',.08)});
+    }
+  });
+
+  // Add banner glow to the countdown bar
+  var countdownBar=document.querySelector('[style*="background: linear-gradient(90deg, #FF6B35"]');
+  if(countdownBar)countdownBar.classList.add('banner-glow');
+
+  // Add card-enter animation to product grid items
+  var prodSection=document.getElementById('products');
+  if(prodSection){
+    var cards=prodSection.querySelectorAll('.card, [class*="rounded-xl"]');
+    cards.forEach(function(c,i){c.classList.add('prod-card');c.style.animationDelay=(i*0.06)+'s'});
+  }
+
+  // Tick animation on countdown seconds
+  var secsEl=document.getElementById('countdown-seconds');
+  if(secsEl){
+    var obs=new MutationObserver(function(){
+      secsEl.classList.remove('countdown-tick');
+      void secsEl.offsetWidth;
+      secsEl.classList.add('countdown-tick');
+    });
+    obs.observe(secsEl,{childList:true,characterData:true,subtree:true});
+  }
+})();
+</script>
+
+<script src="js/checkout-params.js"></script>
+</body></html>
